@@ -36,7 +36,7 @@ export function AcademicProvider({ children }) {
 
   localStorage.removeItem("studentProfile");
   localStorage.removeItem("studentMarks");
-  localStorage.removeItem("aps");
+  localStorage.removeItem("studentAPS");
   localStorage.removeItem("selectedProgramme");
 
 };
