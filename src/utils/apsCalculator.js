@@ -11,21 +11,47 @@ function getPoints(mark) {
 
 }
 
+
 export function calculateAPS(studentMarks) {
 
   let total = 0;
 
+
   Object.values(studentMarks).forEach((result) => {
 
-    if (!result.subject || !result.mark) return;
-
-    if (result.subject !== "Life Orientation") {
-
-      total += getPoints(Number(result.mark));
-
+    // Ignore completely empty subject slots
+    if (
+      !result.subject ||
+      result.mark === "" ||
+      result.mark === null ||
+      result.mark === undefined
+    ) {
+      return;
     }
 
+
+    // Life Orientation is not included in APS
+    if (result.subject === "Life Orientation") {
+      return;
+    }
+
+
+    const mark = Number(result.mark);
+
+    // Ignore invalid values
+    if (
+      Number.isNaN(mark) ||
+      mark < 0 ||
+      mark > 100
+    ) {
+      return;
+    }
+
+
+    total += getPoints(mark);
+
   });
+
 
   return total;
 
