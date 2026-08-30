@@ -1,109 +1,215 @@
 const subjects = [
+
   {
     id: 1,
     name: "English Home Language",
     category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 2,
     name: "Afrikaans Home Language",
     category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 3,
     name: "isiZulu Home Language",
     category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 4,
-    name: "Xitsonga Home Language",
+    name: "Sepedi Home Language",
     category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 5,
-    name: "English First Additional Language",
+    name: "Sesotho Home Language",
     category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 6,
-    name: "Afrikaans First Additional Language",
+    name: "Setswana Home Language",
     category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 7,
-    name: "Mathematics",
-    category: "Mathematics",
+    name: "siSwati Home Language",
+    category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 8,
-    name: "Mathematical Literacy",
-    category: "Mathematics",
+    name: "isiNdebele Home Language",
+    category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 9,
-    name: "Life Orientation",
-    category: "Compulsory",
+    name: "Tshivenda Home Language",
+    category: "Language",
+    type: "homeLanguage"
   },
+
   {
     id: 10,
-    name: "Physical Sciences",
-    category: "Elective",
+    name: "English First Additional Language",
+    category: "Language",
+    type: "firstAdditionalLanguage"
   },
+
   {
     id: 11,
-    name: "Life Sciences",
-    category: "Elective",
+    name: "Afrikaans First Additional Language",
+    category: "Language",
+    type: "firstAdditionalLanguage"
   },
+
   {
     id: 12,
-    name: "Geography",
-    category: "Elective",
+    name: "isiZulu First Additional Language",
+    category: "Language",
+    type: "firstAdditionalLanguage"
   },
+
   {
     id: 13,
-    name: "History",
-    category: "Elective",
+    name: "Sepedi First Additional Language",
+    category: "Language",
+    type: "firstAdditionalLanguage"
   },
+
   {
     id: 14,
-    name: "Accounting",
-    category: "Elective",
+    name: "Sesotho First Additional Language",
+    category: "Language",
+    type: "firstAdditionalLanguage"
   },
+
   {
     id: 15,
-    name: "Business Studies",
-    category: "Elective",
+    name: "Setswana First Additional Language",
+    category: "Language",
+    type: "firstAdditionalLanguage"
   },
+
   {
     id: 16,
-    name: "Economics",
-    category: "Elective",
+    name: "Mathematics",
+    category: "Mathematics",
+    type: "mathematics"
   },
+
   {
     id: 17,
-    name: "Information Technology",
-    category: "Elective",
+    name: "Mathematical Literacy",
+    category: "Mathematics",
+    type: "mathematics"
   },
+
   {
     id: 18,
-    name: "CAT",
-    category: "Elective",
+    name: "Life Orientation",
+    category: "Compulsory",
+    type: "lifeOrientation"
   },
+
   {
     id: 19,
-    name: "Tourism",
+    name: "Physical Sciences",
     category: "Elective",
+    type: "elective"
   },
+
   {
     id: 20,
-    name: "Visual Arts",
+    name: "Life Sciences",
     category: "Elective",
+    type: "elective"
   },
+
   {
     id: 21,
+    name: "Geography",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 22,
+    name: "History",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 23,
+    name: "Accounting",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 24,
+    name: "Business Studies",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 25,
+    name: "Economics",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 26,
+    name: "Information Technology",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 27,
+    name: "CAT",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 28,
+    name: "Tourism",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 29,
+    name: "Visual Arts",
+    category: "Elective",
+    type: "elective"
+  },
+
+  {
+    id: 30,
     name: "Consumer Studies",
     category: "Elective",
-  },
+    type: "elective"
+  }
+
 ];
 
 export default subjects;

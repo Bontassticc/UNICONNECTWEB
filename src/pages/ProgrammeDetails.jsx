@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { AcademicContext } from "../context/AcademicContext";
 import Navbar from "../components/Navbar";
@@ -9,6 +8,7 @@ import programmes from "../data/programmes";
 function ProgrammeDetails() {
 
   const navigate = useNavigate();
+
   const { aps, studentMarks } = useContext(AcademicContext);
 
   const { id } = useParams();
@@ -17,189 +17,519 @@ function ProgrammeDetails() {
     (p) => p.id === Number(id)
   );
 
+
+  // --------------------------------
+  // Programme not found
+  // --------------------------------
+
   if (!programme) {
-    return <h2>Programme not found.</h2>;
+
+    return (
+      <>
+        <Navbar />
+
+        <section className="programme-details-page">
+
+          <div className="details-card">
+
+            <h2>Programme not found</h2>
+
+            <p>
+              Sorry, we could not find this programme.
+            </p>
+
+            <button
+              className="back-btn"
+              onClick={() => navigate("/programmes")}
+            >
+              ← Back to Programmes
+            </button>
+
+          </div>
+
+        </section>
+      </>
+    );
+
   }
 
-  const apsPassed = aps !== null && aps >= programme.apsRequirement;
+
+  // --------------------------------
+  // Check if student has results
+  // --------------------------------
+
+  const hasResults =
+    aps !== null &&
+    Object.keys(studentMarks).length > 0;
 
 
-  const subjectResults = programme.requiredSubjects.map((required) => {
+  // --------------------------------
+  // Check APS requirement
+  // --------------------------------
 
-  const studentSubject = Object.values(studentMarks).find(
-    (item) => item.subject === required.subject
-  );
+  const apsPassed =
+    hasResults &&
+    aps >= programme.minAPS;
 
-  const studentMark = studentSubject
-    ? Number(studentSubject.mark)
-    : null;
 
-  return {
-    ...required,
-    studentMark,
-    passed:
-      studentMark !== null &&
-      studentMark >= required.minimum
+  // --------------------------------
+  // Find student's mark
+  // --------------------------------
+
+  const findStudentMark = (
+    type,
+    allowedSubjects = []
+  ) => {
+
+    const results = Object.values(studentMarks);
+
+
+    // Mathematics
+    if (type === "mathematics") {
+
+      const result = results.find(
+        item =>
+          item.subject === "Mathematics"
+      );
+
+      return result
+        ? Number(result.mark)
+        : null;
+    }
+
+
+    // Mathematics OR Mathematical Literacy
+    if (type === "mathematicsOrLiteracy") {
+
+      const result = results.find(
+        item =>
+          item.subject === "Mathematics" ||
+          item.subject === "Mathematical Literacy"
+      );
+
+      return result
+        ? Number(result.mark)
+        : null;
+    }
+
+
+    // First Additional Language
+    if (type === "firstAdditionalLanguage") {
+
+      const result = results.find(
+        item =>
+          item.subject &&
+          item.subject.toLowerCase().includes(
+            "first additional language"
+          )
+      );
+
+      return result
+        ? Number(result.mark)
+        : null;
+    }
+
+
+    // Specific elective
+    if (type === "elective") {
+
+      const result = results.find(
+        item =>
+          allowedSubjects.includes(
+            item.subject
+          )
+      );
+
+      return result
+        ? Number(result.mark)
+        : null;
+    }
+
+
+    return null;
+
   };
 
-});
-  
+
+  // --------------------------------
+  // Evaluate requirements
+  // --------------------------------
+
+  const requirementResults =
+    programme.requirements.map(
+      (requirement) => {
+
+        const studentMark =
+          findStudentMark(
+            requirement.type,
+            requirement.subjects || []
+          );
+
+
+        const passed =
+          studentMark !== null &&
+          studentMark >= requirement.minimumMark;
+
+
+        return {
+          ...requirement,
+          studentMark,
+          passed
+        };
+
+      }
+    );
+
+
+  // --------------------------------
+  // Check subject requirements
+  // --------------------------------
+
+  const subjectsPassed =
+    requirementResults.every(
+      requirement =>
+        requirement.passed
+    );
+
+
+  // --------------------------------
+  // Overall eligibility
+  // --------------------------------
+
+  const eligible =
+    hasResults &&
+    apsPassed &&
+    subjectsPassed;
+
 
   return (
     <>
+
       <Navbar />
+
 
       <section className="programme-details-page">
 
+
+        {/* --------------------------------
+            Programme Header
+        -------------------------------- */}
+
         <div className="programme-hero">
 
-          <h1>{programme.name}</h1>
+          <h1>
+            {programme.name}
+          </h1>
 
-          <h3>{programme.university}</h3>
+          <h3>
+            {programme.university}
+          </h3>
 
           <span className="status">
-            {programme.applicationStatus}
+            {programme.field}
           </span>
 
         </div>
 
+
         <div className="details-grid">
 
-          <div className="details-card">
 
-  <h2>Eligibility Check</h2>
-
-  <p>
-
-    <strong>Your APS:</strong>{" "}
-    {aps ?? "Not calculated"}
-
-  </p>
-
-  <p>
-
-    <strong>Required APS:</strong>{" "}
-    {programme.apsRequirement}
-
-  </p>
-
-  <p>
-
-    {apsPassed ? "✅ APS Requirement Met" : "❌ APS Requirement Not Met"}
-
-  </p>
-
-  <hr />
-
-  <h3>Required Subjects</h3>
-
-  {subjectResults.map(subject => (
-
-    <div key={subject.subject}>
-
-      <strong>{subject.subject}</strong>
-
-      <p>
-
-        Required: {subject.minimum}%
-
-      </p>
-
-      <p>
-
-        Your Mark: {subject.studentMark ?? "--"}%
-
-      </p>
-
-      <p>
-
-        {subject.passed ? "✅ Pass" : "❌ Does not meet requirement"}
-
-      </p>
-
-    </div>
-
-  ))}
-
-</div>
+          {/* --------------------------------
+              Eligibility Check
+          -------------------------------- */}
 
           <div className="details-card">
 
-            <h2>Programme Overview</h2>
+            <h2>
+              Eligibility Check
+            </h2>
 
-            <p>{programme.description}</p>
+
+            <p>
+
+              <strong>Your APS:</strong>{" "}
+
+              {hasResults
+                ? aps
+                : "Not calculated"
+              }
+
+            </p>
+
+
+            <p>
+
+              <strong>Required APS:</strong>{" "}
+
+              {programme.minAPS}
+
+            </p>
+
+
+            {/* APS status */}
+
+            <p>
+
+              {!hasResults
+
+                ? "⚠️ Complete your Academic Profile to check your eligibility."
+
+                : apsPassed
+
+                  ? "✅ APS Requirement Met"
+
+                  : "❌ APS Requirement Not Met"
+
+              }
+
+            </p>
+
+
+            <hr />
+
+
+            <h3>
+              Subject Requirements
+            </h3>
+
+
+            {requirementResults.map(
+              (requirement, index) => (
+
+                <div
+                  className="requirement-item"
+                  key={index}
+                >
+
+                  <strong>
+                    {requirement.label}
+                  </strong>
+
+
+                  <p>
+                    Required:{" "}
+                    {requirement.minimumMark}%
+                  </p>
+
+
+                  <p>
+
+                    Your Mark:{" "}
+
+                    {requirement.studentMark !== null
+
+                      ? `${requirement.studentMark}%`
+
+                      : "--"
+
+                    }
+
+                  </p>
+
+
+                  <p>
+
+                    {!hasResults
+
+                      ? "⚠️ Enter your results to check this requirement."
+
+                      : requirement.studentMark === null
+
+                        ? "⚠️ Subject result not found"
+
+                        : requirement.passed
+
+                          ? "✅ Requirement Met"
+
+                          : "❌ Does not meet requirement"
+
+                    }
+
+                  </p>
+
+                </div>
+
+              )
+            )}
+
+
+            <hr />
+
+
+            {/* --------------------------------
+                Overall Result
+            -------------------------------- */}
+
+            <div className="eligibility-result">
+
+              <h3>
+                Overall Result
+              </h3>
+
+
+              {!hasResults
+
+                ? (
+
+                  <p>
+                    ⚠️ Complete your Academic Profile
+                    to check eligibility.
+                  </p>
+
+                )
+
+                : eligible
+
+                  ? (
+
+                    <p>
+                      🎉 You meet the current
+                      requirements for this programme.
+                    </p>
+
+                  )
+
+                  : (
+
+                    <p>
+                      ❌ You currently do not meet
+                      all the requirements for this programme.
+                    </p>
+
+                  )
+
+              }
+
+            </div>
 
           </div>
 
+
+          {/* --------------------------------
+              Programme Overview
+          -------------------------------- */}
+
           <div className="details-card">
 
-            <h2>Entry Requirements</h2>
+            <h2>
+              Programme Overview
+            </h2>
 
-            <p><strong>APS Required:</strong> {programme.apsRequirement}</p>
+            <p>
+              {programme.name} at{" "}
+              {programme.university} is a
+              programme in the{" "}
+              {programme.field} field.
+            </p>
 
-            <h3>Required Subjects</h3>
+          </div>
+
+
+          {/* --------------------------------
+              Entry Requirements
+          -------------------------------- */}
+
+          <div className="details-card">
+
+            <h2>
+              Entry Requirements
+            </h2>
+
+
+            <p>
+
+              <strong>APS Required:</strong>{" "}
+
+              {programme.minAPS}
+
+            </p>
+
+
+            <h3>
+              Required Subjects
+            </h3>
+
 
             <ul>
 
-              {programme.requiredSubjects.map((subject) => (
+              {programme.requirements.map(
+                (requirement, index) => (
 
-                <li key={subject.subject}>
-                  {subject.subject} ({subject.minimum}%)
-                </li>
+                  <li key={index}>
 
-              ))}
+                    {requirement.label}
+                    {" "}
+                    ({requirement.minimumMark}%)
+
+                  </li>
+
+                )
+              )}
 
             </ul>
 
           </div>
 
-          <div className="details-card">
 
-            <h2>Programme Information</h2>
-
-            <p><strong>Faculty:</strong> {programme.faculty}</p>
-
-            <p><strong>Duration:</strong> {programme.duration}</p>
-
-            <p><strong>Campus:</strong> {programme.campus}</p>
-
-            <p><strong>Deadline:</strong> {programme.applicationDeadline}</p>
-
-          </div>
+          {/* --------------------------------
+              Programme Information
+          -------------------------------- */}
 
           <div className="details-card">
 
-            <h2>Career Opportunities</h2>
+            <h2>
+              Programme Information
+            </h2>
 
-            <ul>
 
-              {programme.careers.map((career) => (
+            <p>
 
-                <li key={career}>
-                  {career}
-                </li>
+              <strong>
+                University:
+              </strong>{" "}
 
-              ))}
+              {programme.university}
 
-            </ul>
+            </p>
+
+
+            <p>
+
+              <strong>
+                Field:
+              </strong>{" "}
+
+              {programme.field}
+
+            </p>
 
           </div>
+
 
         </div>
 
-         <button
-         className="back-btn"
-         onClick={() => navigate("/programmes")}
->
-        ← Back to Programmes
-         </button>
 
-        
+        {/* --------------------------------
+            Back Button
+        -------------------------------- */}
+
+        <button
+          className="back-btn"
+          onClick={() =>
+            navigate("/programmes")
+          }
+        >
+          ← Back to Programmes
+        </button>
+
 
       </section>
 
     </>
+
   );
+
 }
 
 export default ProgrammeDetails;

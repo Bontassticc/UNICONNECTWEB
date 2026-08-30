@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
 import { calculateAPS } from "../utils/apsCalculator";
 import { AcademicContext } from "../context/AcademicContext";
 import { useNavigate } from "react-router-dom";
+import universities from "../data/universities";
 
 function AcademicProfile() {
 
@@ -19,9 +20,22 @@ function AcademicProfile() {
   } = useContext(AcademicContext);
 
 
-  // -----------------------------
+  // --------------------------------
+  // Dynamic data counts
+  // --------------------------------
+
+  const universityCount = universities.length;
+
+  const programmeCount = universities.reduce(
+    (total, university) =>
+      total + university.programmes.length,
+    0
+  );
+
+
+  // --------------------------------
   // Profile input
-  // -----------------------------
+  // --------------------------------
 
   const handleProfileChange = (field, value) => {
 
@@ -33,39 +47,148 @@ function AcademicProfile() {
   };
 
 
-  // -----------------------------
+  // --------------------------------
   // Results submission
-  // -----------------------------
+  // --------------------------------
 
   const handleResultsSubmit = (results) => {
 
-    // Check that all subjects have been completed
-    const incompleteSubjects = Object.entries(results).filter(
-      ([, result]) =>
-        !result.subject ||
-        result.mark === "" ||
-        result.mark === null ||
-        result.mark === undefined
+    const missingFields = [];
+
+
+    // --------------------------------
+    // Check student information
+    // --------------------------------
+
+    if (!studentProfile.firstName.trim()) {
+      missingFields.push("First Name");
+    }
+
+    if (!studentProfile.surname.trim()) {
+      missingFields.push("Surname");
+    }
+
+    if (!studentProfile.school.trim()) {
+      missingFields.push("School");
+    }
+
+    if (!studentProfile.province.trim()) {
+      missingFields.push("Province");
+    }
+
+
+    // --------------------------------
+    // Check required subjects
+    // --------------------------------
+
+    if (
+      !results.homeLanguage.subject ||
+      results.homeLanguage.mark === ""
+    ) {
+      missingFields.push("Home Language");
+    }
+
+    if (
+      !results.firstAdditional.subject ||
+      results.firstAdditional.mark === ""
+    ) {
+      missingFields.push("First Additional Language");
+    }
+
+    if (
+      !results.mathematics.subject ||
+      results.mathematics.mark === ""
+    ) {
+      missingFields.push("Mathematics / Mathematical Literacy");
+    }
+
+    if (
+      !results.lifeOrientation.subject ||
+      results.lifeOrientation.mark === ""
+    ) {
+      missingFields.push("Life Orientation");
+    }
+
+
+    // --------------------------------
+    // Check electives
+    // --------------------------------
+
+    const completedElectives = [
+      results.elective1,
+      results.elective2,
+      results.elective3,
+      results.elective4
+    ].filter(
+      elective =>
+        elective.subject &&
+        elective.mark !== ""
     );
 
-    if (incompleteSubjects.length > 0) {
+
+    if (completedElectives.length < 3) {
+
+      missingFields.push(
+        "At least 3 elective subjects"
+      );
+
+    }
+
+
+    // --------------------------------
+    // Check mark ranges
+    // --------------------------------
+
+    for (const result of Object.values(results)) {
+
+      if (result.mark === "") {
+        continue;
+      }
+
+      const mark = Number(result.mark);
+
+      if (mark < 0 || mark > 100) {
+
+        alert(
+          "Please make sure all marks are between 0 and 100."
+        );
+
+        return;
+      }
+
+    }
+
+
+    // --------------------------------
+    // Stop if information is missing
+    // --------------------------------
+
+    if (missingFields.length > 0) {
 
       alert(
-        "Please complete all required subjects and enter a mark for each subject before saving your results."
+        "Please complete the following before saving your academic profile:\n\n" +
+        missingFields
+          .map(field => `• ${field}`)
+          .join("\n")
       );
 
       return;
     }
 
 
+    // --------------------------------
     // Calculate APS
+    // --------------------------------
+
     const calculatedAPS = calculateAPS(results);
 
 
-    // Save results to Context
+    // --------------------------------
+    // Save results
+    // --------------------------------
+
     setStudentMarks(results);
 
-    // Save APS to Context
     setAPS(calculatedAPS);
 
 
@@ -76,9 +199,9 @@ function AcademicProfile() {
   };
 
 
-  // -----------------------------
+  // --------------------------------
   // Reset profile
-  // -----------------------------
+  // --------------------------------
 
   const handleReset = () => {
 
@@ -97,6 +220,10 @@ function AcademicProfile() {
   };
 
 
+  // --------------------------------
+  // Page
+  // --------------------------------
+
   return (
 
     <>
@@ -105,6 +232,7 @@ function AcademicProfile() {
 
 
       <section className="profile-page">
+
 
         <div className="profile-header">
 
@@ -122,9 +250,7 @@ function AcademicProfile() {
         <div className="profile-dashboard">
 
 
-          {/* -----------------------------
-              Student Information
-          ----------------------------- */}
+          {/* Student Information */}
 
           <div className="profile-card">
 
@@ -184,9 +310,7 @@ function AcademicProfile() {
           </div>
 
 
-          {/* -----------------------------
-              Grade 12 Results
-          ----------------------------- */}
+          {/* Grade 12 Results */}
 
           <div className="profile-card">
 
@@ -199,9 +323,7 @@ function AcademicProfile() {
           </div>
 
 
-          {/* -----------------------------
-              Academic Snapshot
-          ----------------------------- */}
+          {/* Academic Snapshot */}
 
           <h2>Academic Snapshot</h2>
 
@@ -219,10 +341,12 @@ function AcademicProfile() {
               </h1>
 
               <p>
+
                 {aps !== null
                   ? "Calculated from your latest Grade 12 results."
                   : "Enter your Grade 12 results to calculate your APS."
                 }
+
               </p>
 
             </div>
@@ -230,39 +354,33 @@ function AcademicProfile() {
           </div>
 
 
-          {/* -----------------------------
-              University Count
-          ----------------------------- */}
+          {/* University Count */}
 
           <div className="summary-item">
 
             <span>Universities</span>
 
             <p>
-              3 Available
+              {universityCount} Available
             </p>
 
           </div>
 
 
-          {/* -----------------------------
-              Programme Count
-          ----------------------------- */}
+          {/* Programme Count */}
 
           <div className="summary-item">
 
             <span>Programmes</span>
 
             <p>
-              6 Available
+              {programmeCount} Available
             </p>
 
           </div>
 
 
-          {/* -----------------------------
-              Reset
-          ----------------------------- */}
+          {/* Reset */}
 
           <button
             className="reset-btn"
