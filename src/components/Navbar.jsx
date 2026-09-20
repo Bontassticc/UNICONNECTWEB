@@ -12,6 +12,7 @@ function Navbar() {
       <div className="nav-links">
 
         <Link to="/">Home</Link>
+        
 
         <Link to="/programmes">
           Programmes
@@ -23,6 +24,8 @@ function Navbar() {
 
 
        <Link to="/profile">Academic Profile</Link>
+
+       <Link to="/login">Log In</Link>
 
 
       </div>

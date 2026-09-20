@@ -7,7 +7,6 @@ import programmes from "../data/programmes";
 function Features() {
   return (
     <>
-
       {/* ================= FEATURES ================= */}
 
       <section className="features">
@@ -27,7 +26,7 @@ function Features() {
 
           <div className="feature-card">
 
-            <h3>📊 APS Calculator</h3>
+            <h3>APS Calculator</h3>
 
             <p>
               Calculate your Admission Point Score instantly using
@@ -38,7 +37,7 @@ function Features() {
 
           <div className="feature-card">
 
-            <h3>👤 Academic Profile</h3>
+            <h3>Academic Profile</h3>
 
             <p>
               Save your academic information once and use it
@@ -49,7 +48,7 @@ function Features() {
 
           <div className="feature-card">
 
-            <h3>✅ Eligibility Checker</h3>
+            <h3>Eligibility Checker</h3>
 
             <p>
               Instantly see which university programmes you qualify
@@ -60,7 +59,7 @@ function Features() {
 
           <div className="feature-card">
 
-            <h3>🏛 Explore Universities</h3>
+            <h3>Explore Universities</h3>
 
             <p>
               Browse South African universities and compare their
@@ -71,7 +70,7 @@ function Features() {
 
           <div className="feature-card">
 
-            <h3>🎓 Programme Information</h3>
+            <h3>Programme Information</h3>
 
             <p>
               View APS requirements, subject requirements,
@@ -82,7 +81,7 @@ function Features() {
 
           <div className="feature-card">
 
-            <h3>⭐ Smart Recommendations</h3>
+            <h3>Smart Recommendations</h3>
 
             <p>
               Receive alternative programme suggestions if you
@@ -118,7 +117,9 @@ function Features() {
 
             <h3>Create Profile</h3>
 
-            <p>Enter your personal and academic details.</p>
+            <p>
+              Enter your personal and academic details.
+            </p>
 
           </div>
 
@@ -128,7 +129,9 @@ function Features() {
 
             <h3>Enter Results</h3>
 
-            <p>Save your Grade 12 subject marks.</p>
+            <p>
+              Save your Grade 12 subject marks.
+            </p>
 
           </div>
 
@@ -138,7 +141,9 @@ function Features() {
 
             <h3>Calculate APS</h3>
 
-            <p>Automatically calculate your APS score.</p>
+            <p>
+              Automatically calculate your APS score.
+            </p>
 
           </div>
 
@@ -148,7 +153,9 @@ function Features() {
 
             <h3>Explore Programmes</h3>
 
-            <p>Find programmes that match your results.</p>
+            <p>
+              Find programmes that match your results.
+            </p>
 
           </div>
 
@@ -233,9 +240,7 @@ function Features() {
         <Link to="/universities">
 
           <button className="primary-btn">
-
             Explore All Universities
-
           </button>
 
         </Link>

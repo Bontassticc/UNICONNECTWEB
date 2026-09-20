@@ -9,22 +9,28 @@ function SubjectRow({
   onMarkChange,
 }) {
 
+  // Create unique IDs for each subject row
+  const fieldId = label.toLowerCase().replace(/\s+/g, "-");
+
   return (
 
     <div className="subject-row">
 
       <div className="subject-select">
 
-        <label>{label}</label>
+        <label htmlFor={`${fieldId}-subject`}>
+          {label}
+        </label>
 
         <select
+          id={`${fieldId}-subject`}
           value={value}
-          onChange={(e)=>onSubjectChange(e.target.value)}
+          onChange={(e) => onSubjectChange(e.target.value)}
         >
 
           <option value="">Select Subject</option>
 
-          {subjects.map((subject)=>(
+          {subjects.map((subject) => (
 
             <option
               key={subject.id}
@@ -41,17 +47,21 @@ function SubjectRow({
 
       </div>
 
+
       <div className="subject-mark">
 
-        <label>Mark (%)</label>
+        <label htmlFor={`${fieldId}-mark`}>
+          Mark (%)
+        </label>
 
         <input
+          id={`${fieldId}-mark`}
           type="number"
           min="0"
           max="100"
           placeholder="0-100"
           value={mark}
-          onChange={(e)=>onMarkChange(e.target.value)}
+          onChange={(e) => onMarkChange(e.target.value)}
         />
 
       </div>

@@ -1,19 +1,17 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
 import { AcademicContext } from "../context/AcademicContext";
+
 import universities from "../data/universities";
 import programmes from "../data/programmes";
-import AcademicProfile from "../pages/AcademicProfile";
 
 function Hero() {
-
   const { studentProfile, aps } = useContext(AcademicContext);
 
   return (
-
     <section className="hero">
 
-      {/* HERO CONTAINER STARTS HERE */}
       <div className="hero-container">
 
         {/* LEFT SIDE */}
@@ -48,14 +46,14 @@ function Hero() {
 
         </div>
 
-        {/* RIGHT SIDE STARTS HERE */}
+        {/* RIGHT SIDE */}
         <div className="hero-dashboard">
 
           <h3>Student Snapshot</h3>
 
           <div className="snapshot-item">
 
-            <span>👤 Student</span>
+            <span>Student</span>
 
             <strong>
               {studentProfile.firstName || "Guest"}
@@ -94,13 +92,10 @@ function Hero() {
           </div>
 
         </div>
-        {/* RIGHT SIDE ENDS HERE */}
 
       </div>
-      {/* HERO CONTAINER ENDS HERE */}
 
     </section>
-
   );
 }
 

@@ -7,6 +7,7 @@ import Programmes from "./pages/Programmes";
 import ProgrammeDetails from "./pages/ProgrammeDetails";
 import MyResults from "./pages/MyResults";
 import AcademicProfile from "./pages/AcademicProfile";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       <Routes>
 
         <Route path="/" element={<Home />} />
+
+        <Route path="/login" element={<Login />} />
 
         <Route path="/universities" element={<Universities />} />
 

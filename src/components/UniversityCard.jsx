@@ -1,7 +1,6 @@
 import React from "react";
 
 function UniversityCard({ university }) {
-
   return (
     <div className="university-card">
 
@@ -24,28 +23,38 @@ function UniversityCard({ university }) {
         {university.description}
       </p>
 
-      <div className="programmes-preview">
+      {university.programmes && university.programmes.length > 0 ? (
 
-        {university.programmes.map((programme, index)=>(
-          <div
-            className="programme-preview"
-            key={index}
-          >
+        <div className="programmes-preview">
 
-            <div>
-              <strong>{programme.name}</strong>
-              <p>{programme.faculty}</p>
+          {university.programmes.map((programme) => (
+            <div
+              className="programme-preview"
+              key={programme.id || programme.name}
+            >
+
+              <div>
+                <strong>{programme.name}</strong>
+                <p>{programme.faculty}</p>
+              </div>
+
+              <div className="programme-right">
+                <span>APS {programme.aps}</span>
+                <p>{programme.spaces}</p>
+              </div>
+
             </div>
+          ))}
 
-            <div className="programme-right">
-              <span>APS {programme.aps}</span>
-              <p>{programme.spaces}</p>
-            </div>
+        </div>
 
-          </div>
-        ))}
+      ) : (
 
-      </div>
+        <div className="university-programmes-empty">
+          <p>No programme information is currently available.</p>
+        </div>
+
+      )}
 
     </div>
   );
