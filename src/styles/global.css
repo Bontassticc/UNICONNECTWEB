@@ -2034,3 +2034,404 @@ select:focus {
   }
 
 }
+
+/* =========================
+   SETTINGS PAGE
+========================= */
+
+.settings-page {
+  min-height: 100vh;
+  padding: 140px 8% 80px;
+  box-sizing: border-box;
+}
+
+.settings-header {
+  max-width: 700px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.settings-header h1 {
+  margin: 0 0 12px;
+  font-size: 42px;
+  color: #222;
+}
+
+.settings-header p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.settings-page .profile-status {
+  max-width: 700px;
+  margin: 0 auto 25px;
+}
+
+.settings-card {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 25px;
+  padding: 30px;
+
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 14px;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+}
+
+.settings-card-header {
+  margin-bottom: 25px;
+}
+
+.settings-card-header h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  color: #222;
+}
+
+.settings-card-header p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+.settings-option h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: #333;
+}
+
+.settings-option p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #777;
+}
+
+.theme-toggle {
+  min-width: 65px;
+  padding: 10px 16px;
+
+  border: 1px solid #ccc;
+  border-radius: 20px;
+
+  background: #f3f3f3;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.theme-toggle.active {
+  background: #c96f4a;
+  border-color: #c96f4a;
+  color: #ffffff;
+}
+
+.settings-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-link {
+  display: inline-block;
+  padding: 14px 16px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  color: #333;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.settings-link:hover {
+  border-color: #c96f4a;
+  color: #c96f4a;
+}
+
+.privacy-info {
+  padding: 15px 18px;
+  margin-bottom: 20px;
+
+  background: #f7f7f7;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+}
+
+.privacy-info p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.settings-card .reset-btn {
+  width: 100%;
+}
+
+
+@media (max-width: 600px) {
+
+  .settings-page {
+    padding: 120px 5% 60px;
+  }
+
+  .settings-header {
+    margin-bottom: 35px;
+  }
+
+  .settings-header h1 {
+    font-size: 36px;
+  }
+
+  .settings-card {
+    padding: 25px 20px;
+  }
+
+  .settings-option {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .theme-toggle {
+    width: 100%;
+  }
+
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark-mode {
+  background: #1f1f1f;
+  color: #f5f5f5;
+}
+
+/* NAVBAR */
+
+body.dark-mode .navbar {
+  background: #1f1f1f;
+  border-bottom-color: #333;
+}
+
+body.dark-mode .navbar a,
+body.dark-mode .logo {
+  color: #f5f5f5;
+}
+
+
+/* CARDS */
+
+body.dark-mode .login-card,
+body.dark-mode .settings-card,
+body.dark-mode .profile-card,
+body.dark-mode .programme-card,
+body.dark-mode .university-card,
+body.dark-mode .details-card,
+body.dark-mode .results-form,
+body.dark-mode .aps-result {
+  background: #2b2b2b;
+  border-color: #444;
+}
+
+/* FORM INPUTS */
+
+body.dark-mode input,
+body.dark-mode select {
+  background: #333;
+  color: #f5f5f5;
+  border-color: #555;
+}
+
+body.dark-mode input::placeholder {
+  color: #aaa;
+}
+
+/* SETTINGS */
+
+body.dark-mode .privacy-info {
+  background: #333;
+  border-color: #444;
+}
+
+body.dark-mode .settings-link {
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+body.dark-mode .settings-link:hover {
+  border-color: #c96f4a;
+  color: #c96f4a;
+}
+
+/* SUBJECT ROWS */
+
+body.dark-mode .subject-row {
+  background: #2b2b2b;
+}
+
+/* GENERAL SECONDARY TEXT */
+
+body.dark-mode .settings-card-header p,
+body.dark-mode .settings-option p,
+body.dark-mode .login-header p,
+body.dark-mode .login-footer p {
+  color: #bbb;
+}
+
+/* =========================
+   DARK MODE - LIGHT SECTIONS
+========================= */
+
+body.dark-mode .features,
+body.dark-mode .how-it-works,
+body.dark-mode .quick-stats,
+body.dark-mode .programmes-page,
+body.dark-mode .universities-page,
+body.dark-mode .profile-page,
+body.dark-mode .results-page,
+body.dark-mode .programme-details-page {
+  background: #1f1f1f;
+}
+
+/* =========================
+   DARK MODE - PAGE SECTIONS
+========================= */
+
+body.dark-mode .features,
+body.dark-mode .how-it-works,
+body.dark-mode .quick-stats,
+body.dark-mode .programmes-page,
+body.dark-mode .universities-page,
+body.dark-mode .profile-page,
+body.dark-mode .results-page,
+body.dark-mode .programme-details-page {
+  background: #1f1f1f;
+}
+
+
+/* =========================
+   DARK MODE - HOME CARDS
+========================= */
+
+body.dark-mode .feature-card,
+body.dark-mode .step-card,
+body.dark-mode .stat-card {
+  background: #2b2b2b;
+  border-color: #444;
+}
+
+body.dark-mode .feature-card h3,
+body.dark-mode .feature-card p,
+body.dark-mode .step-card h3,
+body.dark-mode .step-card p,
+body.dark-mode .stat-card h2,
+body.dark-mode .stat-card p {
+  color: #f5f5f5;
+}
+
+
+/* =========================
+   DARK MODE - PROFILE
+========================= */
+
+body.dark-mode .profile-card {
+  background: #2b2b2b;
+  border-color: #444;
+}
+
+body.dark-mode .profile-card h1,
+body.dark-mode .profile-card h2,
+body.dark-mode .profile-card h3,
+body.dark-mode .profile-card p,
+body.dark-mode .profile-card label {
+  color: #f5f5f5;
+}
+
+
+/* PROFILE INPUTS */
+
+body.dark-mode .profile-card input,
+body.dark-mode .profile-card select {
+  background: #333;
+  color: #f5f5f5;
+  border-color: #555;
+}
+
+
+/* =========================
+   DARK MODE - TEXT
+========================= */
+
+body.dark-mode .section-title h2,
+body.dark-mode .section-title p,
+body.dark-mode .features h2,
+body.dark-mode .features p,
+body.dark-mode .how-it-works h2,
+body.dark-mode .how-it-works p,
+body.dark-mode .quick-stats h2,
+body.dark-mode .quick-stats p {
+  color: #f5f5f5;
+}
+
+
+/* =========================
+   DARK MODE - WHITE BACKGROUNDS
+========================= */
+
+body.dark-mode .hero,
+body.dark-mode .features,
+body.dark-mode .how-it-works,
+body.dark-mode .quick-stats {
+  background-color: #1f1f1f;
+}
+
+/* =========================
+   DARK MODE - LOGIN
+========================= */
+
+body.dark-mode .login-card .form-field label {
+  color: #f5f5f5;
+}
+
+body.dark-mode .login-card .login-header p {
+  color: #bbb;
+}
+
+body.dark-mode .login-card .login-footer p {
+  color: #bbb;
+}
+
+/* =========================
+   DARK MODE - FEATURED UNIVERSITIES
+========================= */
+
+body.dark-mode .featured-universities {
+  background: #1f1f1f;
+}
+
+body.dark-mode .featured-universities h2,
+body.dark-mode .featured-universities p {
+  color: #f5f5f5;
+}

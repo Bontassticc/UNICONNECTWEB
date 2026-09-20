@@ -25,6 +25,8 @@ function Navbar() {
 
        <Link to="/profile">Academic Profile</Link>
 
+       <Link to="/settings">Settings</Link>
+
        <Link to="/login">Log In</Link>
 
 

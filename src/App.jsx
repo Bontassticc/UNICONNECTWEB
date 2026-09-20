@@ -8,6 +8,7 @@ import ProgrammeDetails from "./pages/ProgrammeDetails";
 import MyResults from "./pages/MyResults";
 import AcademicProfile from "./pages/AcademicProfile";
 import Login from "./pages/Login";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/settings" element={<Settings />} />
 
         <Route path="/universities" element={<Universities />} />
 
