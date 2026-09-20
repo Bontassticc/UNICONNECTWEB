@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
 import { calculateAPS } from "../utils/apsCalculator";
@@ -9,6 +9,9 @@ import universities from "../data/universities";
 function AcademicProfile() {
 
   const navigate = useNavigate();
+
+  const [status, setStatus] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   const {
     studentProfile,
@@ -149,9 +152,10 @@ function AcademicProfile() {
 
       if (mark < 0 || mark > 100) {
 
-        alert(
-          "Please make sure all marks are between 0 and 100."
-        );
+        setStatus({
+          type: "error",
+          message: "Please make sure all marks are between 0 and 100."
+        });
 
         return;
       }
@@ -165,12 +169,22 @@ function AcademicProfile() {
 
     if (missingFields.length > 0) {
 
-      alert(
-        "Please complete the following before saving your academic profile:\n\n" +
-        missingFields
-          .map(field => `• ${field}`)
-          .join("\n")
-      );
+      setStatus({
+        type: "error",
+        message: (
+          <>
+            <strong>
+              Please complete the following before saving your academic profile:
+            </strong>
+
+            <ul>
+              {missingFields.map((field) => (
+                <li key={field}>{field}</li>
+              ))}
+            </ul>
+          </>
+        )
+      });
 
       return;
     }
@@ -187,14 +201,23 @@ function AcademicProfile() {
     // Save results
     // --------------------------------
 
-    setStudentMarks(results);
+    setIsSaving(true);
+    setStatus(null);
 
-    setAPS(calculatedAPS);
+    setTimeout(() => {
 
+      setStudentMarks(results);
 
-    alert(
-      `Profile saved successfully!\n\nAPS: ${calculatedAPS}`
-    );
+      setAPS(calculatedAPS);
+
+      setIsSaving(false);
+
+      setStatus({
+        type: "success",
+        message: `Academic profile saved successfully. Your APS is ${calculatedAPS}.`
+      });
+
+    }, 500);
 
   };
 
@@ -248,6 +271,21 @@ function AcademicProfile() {
 
 
         <div className="profile-dashboard">
+
+
+          {/* Status Messages */}
+
+          {isSaving && (
+            <div className="profile-status loading">
+              Saving your academic profile...
+            </div>
+          )}
+
+          {status && !isSaving && (
+            <div className={`profile-status ${status.type}`}>
+              {status.message}
+            </div>
+          )}
 
 
           {/* Student Information */}
@@ -386,7 +424,7 @@ function AcademicProfile() {
             className="reset-btn"
             onClick={handleReset}
           >
-            🔄 Reset Academic Profile
+            Reset Academic Profile
           </button>
 
 

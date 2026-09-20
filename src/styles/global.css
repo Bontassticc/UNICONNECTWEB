@@ -1433,3 +1433,35 @@ body{
     background:#a93226;
 
 }
+
+/* --------------------------------
+   Profile Status Messages
+-------------------------------- */
+
+.profile-status {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.profile-status.success {
+  background: #e8f5e9;
+  color: #256029;
+  border: 1px solid #a5d6a7;
+}
+
+.profile-status.error {
+  background: #fdecea;
+  color: #b42318;
+  border: 1px solid #f5b5b0;
+}
+
+.profile-status.loading {
+  background: #f3f4f6;
+  color: #444;
+  border: 1px solid #d6d8db;
+}

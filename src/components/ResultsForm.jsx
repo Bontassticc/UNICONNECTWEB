@@ -8,6 +8,8 @@ function ResultsForm({ onSubmit }) {
 
   const { studentMarks } = useContext(AcademicContext);
 
+  const [error, setError] = useState("");
+
 
   // --------------------------------
   // Subject categories
@@ -117,6 +119,8 @@ function ResultsForm({ onSubmit }) {
 
   const updateResult = (key, field, value) => {
 
+    setError("");
+
     setResults(prev => ({
       ...prev,
 
@@ -161,7 +165,7 @@ function ResultsForm({ onSubmit }) {
 
       if (!result.subject) {
 
-        alert(
+        setError(
           `Please select a ${field.label} subject.`
         );
 
@@ -175,7 +179,7 @@ function ResultsForm({ onSubmit }) {
         result.mark === undefined
       ) {
 
-        alert(
+        setError(
           `Please enter a mark for ${field.label}.`
         );
 
@@ -204,7 +208,7 @@ function ResultsForm({ onSubmit }) {
 
     if (completedElectives.length < 3) {
 
-      alert(
+      setError(
         "Please enter at least three elective subjects with their marks."
       );
 
@@ -233,7 +237,7 @@ function ResultsForm({ onSubmit }) {
           mark > 100
         ) {
 
-          alert(
+          setError(
             "Marks must be numbers between 0 and 100."
           );
 
@@ -259,7 +263,7 @@ function ResultsForm({ onSubmit }) {
 
     if (uniqueSubjects.size !== selectedSubjects.length) {
 
-      alert(
+      setError(
         "You cannot select the same subject more than once."
       );
 
@@ -280,6 +284,8 @@ function ResultsForm({ onSubmit }) {
   const handleSubmit = (e) => {
 
     e.preventDefault();
+
+    setError("");
 
 
     const isValid = validateResults();
@@ -303,6 +309,15 @@ function ResultsForm({ onSubmit }) {
       className="results-form"
       onSubmit={handleSubmit}
     >
+
+
+      {/* Error Message */}
+
+      {error && (
+        <div className="profile-status error">
+          {error}
+        </div>
+      )}
 
 
       {/* Home Language */}

@@ -273,13 +273,13 @@ function ProgrammeDetails() {
 
               {!hasResults
 
-                ? "⚠️ Complete your Academic Profile to check your eligibility."
+                ? "Complete your Academic Profile to check your eligibility."
 
                 : apsPassed
 
-                  ? "✅ APS Requirement Met"
+                  ? "APS Requirement Met"
 
-                  : "❌ APS Requirement Not Met"
+                  : "APS Requirement Not Met"
 
               }
 
@@ -332,17 +332,17 @@ function ProgrammeDetails() {
 
                     {!hasResults
 
-                      ? "⚠️ Enter your results to check this requirement."
+                      ? "Enter your results to check this requirement."
 
                       : requirement.studentMark === null
 
-                        ? "⚠️ Subject result not found"
+                        ? "Subject result not found"
 
                         : requirement.passed
 
-                          ? "✅ Requirement Met"
+                          ? "Requirement Met"
 
-                          : "❌ Does not meet requirement"
+                          : "Does not meet requirement"
 
                     }
 
@@ -373,7 +373,7 @@ function ProgrammeDetails() {
                 ? (
 
                   <p>
-                    ⚠️ Complete your Academic Profile
+                    Complete your Academic Profile
                     to check eligibility.
                   </p>
 
@@ -384,7 +384,7 @@ function ProgrammeDetails() {
                   ? (
 
                     <p>
-                      🎉 You meet the current
+                      You meet the current
                       requirements for this programme.
                     </p>
 
@@ -393,7 +393,7 @@ function ProgrammeDetails() {
                   : (
 
                     <p>
-                      ❌ You currently do not meet
+                      You currently do not meet
                       all the requirements for this programme.
                     </p>
 
