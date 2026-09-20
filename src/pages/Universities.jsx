@@ -6,10 +6,8 @@ import UniversityCard from "../components/UniversityCard";
 import universities from "../data/universities";
 
 function Universities() {
-
   return (
     <div>
-
       <Navbar />
 
       <section className="universities-page">
@@ -27,17 +25,29 @@ function Universities() {
 
         <div className="universities-grid">
 
-          {universities.map((university)=>(
-            <UniversityCard
-              key={university.id}
-              university={university}
-            />
-          ))}
+          {universities.length > 0 ? (
+            universities.map((university) => (
+              <UniversityCard
+                key={university.id}
+                university={university}
+              />
+            ))
+          ) : (
+            <div className="university-empty-state">
+
+              <h2>No universities available</h2>
+
+              <p>
+                University information is currently unavailable.
+                Please check again later.
+              </p>
+
+            </div>
+          )}
 
         </div>
 
       </section>
-
     </div>
   );
 }
