@@ -10,6 +10,11 @@ function Login() {
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState(null);
 
+
+  // --------------------------------
+  // Handle login
+  // --------------------------------
+
   const handleSubmit = (e) => {
 
     e.preventDefault();
@@ -26,10 +31,19 @@ function Login() {
       return;
     }
 
+
+    // Prototype login state
+    localStorage.setItem("uniConnectLoggedIn", "true");
+    localStorage.setItem("uniConnectUserEmail", email.trim());
+    
+    window.dispatchEvent(new Event("uniConnectUserChanged"));
+
+
     setStatus({
       type: "success",
       message: "Login successful. Welcome back."
     });
+
 
     setTimeout(() => {
       navigate("/profile");
@@ -39,9 +53,7 @@ function Login() {
 
 
   return (
-
     <>
-
       <Navbar />
 
       <main className="login-page">
@@ -136,9 +148,7 @@ function Login() {
         </div>
 
       </main>
-
     </>
-
   );
 
 }

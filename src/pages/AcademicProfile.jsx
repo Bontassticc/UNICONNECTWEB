@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
 import { calculateAPS } from "../utils/apsCalculator";
@@ -12,6 +12,23 @@ function AcademicProfile() {
 
   const [status, setStatus] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+
+
+  // --------------------------------
+  // Login protection
+  // --------------------------------
+
+  useEffect(() => {
+
+    const isLoggedIn =
+      localStorage.getItem("uniConnectLoggedIn") === "true";
+
+    if (!isLoggedIn) {
+      navigate("/login", { replace: true });
+    }
+
+  }, [navigate]);
+
 
   const {
     studentProfile,
@@ -296,70 +313,71 @@ function AcademicProfile() {
 
             <div className="profile-grid">
 
-  <div className="form-field">
-    <label htmlFor="firstName">First Name</label>
-    <input
-      id="firstName"
-      type="text"
-      value={studentProfile.firstName}
-      onChange={(e) =>
-        handleProfileChange(
-          "firstName",
-          e.target.value
-        )
-      }
-    />
-  </div>
+              <div className="form-field">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  id="firstName"
+                  type="text"
+                  value={studentProfile.firstName}
+                  onChange={(e) =>
+                    handleProfileChange(
+                      "firstName",
+                      e.target.value
+                    )
+                  }
+                />
+              </div>
 
 
-  <div className="form-field">
-    <label htmlFor="surname">Surname</label>
-    <input
-      id="surname"
-      type="text"
-      value={studentProfile.surname}
-      onChange={(e) =>
-        handleProfileChange(
-          "surname",
-          e.target.value
-        )
-      }
-    />
-  </div>
+              <div className="form-field">
+                <label htmlFor="surname">Surname</label>
+                <input
+                  id="surname"
+                  type="text"
+                  value={studentProfile.surname}
+                  onChange={(e) =>
+                    handleProfileChange(
+                      "surname",
+                      e.target.value
+                    )
+                  }
+                />
+              </div>
 
 
-  <div className="form-field">
-    <label htmlFor="school">School</label>
-    <input
-      id="school"
-      type="text"
-      value={studentProfile.school}
-      onChange={(e) =>
-        handleProfileChange(
-          "school",
-          e.target.value
-        )
-      }
-    />
-  </div>
+              <div className="form-field">
+                <label htmlFor="school">School</label>
+                <input
+                  id="school"
+                  type="text"
+                  value={studentProfile.school}
+                  onChange={(e) =>
+                    handleProfileChange(
+                      "school",
+                      e.target.value
+                    )
+                  }
+                />
+              </div>
 
 
-  <div className="form-field">
-    <label htmlFor="province">Province</label>
-    <input
-      id="province"
-      type="text"
-      value={studentProfile.province}
-      onChange={(e) =>
-        handleProfileChange(
-          "province",
-          e.target.value
-        )
-      }
-    />
-  </div>
+              <div className="form-field">
+                <label htmlFor="province">Province</label>
+                <input
+                  id="province"
+                  type="text"
+                  value={studentProfile.province}
+                  onChange={(e) =>
+                    handleProfileChange(
+                      "province",
+                      e.target.value
+                    )
+                  }
+                />
+              </div>
 
-</div>
+            </div>
+
           </div>
 
 

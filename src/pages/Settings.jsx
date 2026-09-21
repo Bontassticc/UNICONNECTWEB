@@ -35,17 +35,20 @@ function Settings() {
   // --------------------------------
 
   const handleLogout = () => {
+  localStorage.removeItem("uniConnectLoggedIn");
+  localStorage.removeItem("uniConnectUserEmail");
 
-    setStatus({
-      type: "success",
-      message: "You have been logged out successfully."
-    });
+  window.dispatchEvent(new Event("uniConnectUserChanged"));
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 700);
+  setStatus({
+    type: "success",
+    message: "You have been logged out successfully."
+  });
 
-  };
+  setTimeout(() => {
+    navigate("/login");
+  }, 700);
+};
 
 
   return (
