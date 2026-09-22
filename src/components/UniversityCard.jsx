@@ -1,6 +1,22 @@
 import React from "react";
 
+import programmes from "../data/programmes";
+
 function UniversityCard({ university }) {
+
+  const universityNameMap = {
+    Wits: "Wits University",
+    UNISA: "UNISA"
+  };
+
+  const programmeUniversityName =
+    universityNameMap[university.shortName] || university.name;
+
+  const universityProgrammes = programmes.filter(
+    (programme) =>
+      programme.university === programmeUniversityName
+  );
+
   return (
     <div className="university-card">
 
@@ -23,27 +39,31 @@ function UniversityCard({ university }) {
         {university.description}
       </p>
 
-      {university.programmes && university.programmes.length > 0 ? (
+      {universityProgrammes.length > 0 ? (
 
         <div className="programmes-preview">
 
-          {university.programmes.map((programme) => (
+          {universityProgrammes.map((programme) => (
+
             <div
               className="programme-preview"
-              key={programme.id || programme.name}
+              key={programme.id}
             >
 
               <div>
                 <strong>{programme.name}</strong>
-                <p>{programme.faculty}</p>
+                <p>{programme.field}</p>
               </div>
 
               <div className="programme-right">
-                <span>APS {programme.aps}</span>
-                <p>{programme.spaces}</p>
+                <span>APS {programme.minAPS}</span>
+                <p>
+                  {programme.spaces || "Available"}
+                </p>
               </div>
 
             </div>
+
           ))}
 
         </div>
@@ -51,7 +71,11 @@ function UniversityCard({ university }) {
       ) : (
 
         <div className="university-programmes-empty">
-          <p>No programme information is currently available.</p>
+
+          <p>
+            No programme information is currently available.
+          </p>
+
         </div>
 
       )}
