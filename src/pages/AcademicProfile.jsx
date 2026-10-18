@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
@@ -5,30 +6,23 @@ import { calculateAPS } from "../utils/apsCalculator";
 import { AcademicContext } from "../context/AcademicContext";
 import { useNavigate } from "react-router-dom";
 import universities from "../data/universities";
+import programmes from "../data/programmes";
 
 function AcademicProfile() {
-
   const navigate = useNavigate();
 
   const [status, setStatus] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
-
-  // --------------------------------
   // Login protection
-  // --------------------------------
-
   useEffect(() => {
-
     const isLoggedIn =
       localStorage.getItem("uniConnectLoggedIn") === "true";
 
     if (!isLoggedIn) {
       navigate("/login", { replace: true });
     }
-
   }, [navigate]);
-
 
   const {
     studentProfile,
@@ -39,47 +33,23 @@ function AcademicProfile() {
     resetProfile
   } = useContext(AcademicContext);
 
-
-  // --------------------------------
   // Dynamic data counts
-  // --------------------------------
-
   const universityCount = universities.length;
+  const programmeCount = programmes.length;
 
-  const programmeCount = universities.reduce(
-    (total, university) =>
-      total + university.programmes.length,
-    0
-  );
-
-
-  // --------------------------------
   // Profile input
-  // --------------------------------
-
   const handleProfileChange = (field, value) => {
-
     setStudentProfile({
       ...studentProfile,
       [field]: value
     });
-
   };
 
-
-  // --------------------------------
   // Results submission
-  // --------------------------------
-
   const handleResultsSubmit = (results) => {
-
     const missingFields = [];
 
-
-    // --------------------------------
     // Check student information
-    // --------------------------------
-
     if (!studentProfile.firstName.trim()) {
       missingFields.push("First Name");
     }
@@ -96,11 +66,7 @@ function AcademicProfile() {
       missingFields.push("Province");
     }
 
-
-    // --------------------------------
     // Check required subjects
-    // --------------------------------
-
     if (
       !results.homeLanguage.subject ||
       results.homeLanguage.mark === ""
@@ -129,46 +95,31 @@ function AcademicProfile() {
       missingFields.push("Life Orientation");
     }
 
-
-    // --------------------------------
     // Check electives
-    // --------------------------------
-
     const completedElectives = [
       results.elective1,
       results.elective2,
       results.elective3,
       results.elective4
     ].filter(
-      elective =>
+      (elective) =>
         elective.subject &&
         elective.mark !== ""
     );
 
-
     if (completedElectives.length < 3) {
-
-      missingFields.push(
-        "At least 3 elective subjects"
-      );
-
+      missingFields.push("At least 3 elective subjects");
     }
 
-
-    // --------------------------------
     // Check mark ranges
-    // --------------------------------
-
     for (const result of Object.values(results)) {
-
       if (result.mark === "") {
         continue;
       }
 
       const mark = Number(result.mark);
 
-      if (mark < 0 || mark > 100) {
-
+      if (mark < 0 || mark > 100 || Number.isNaN(mark)) {
         setStatus({
           type: "error",
           message: "Please make sure all marks are between 0 and 100."
@@ -176,16 +127,10 @@ function AcademicProfile() {
 
         return;
       }
-
     }
 
-
-    // --------------------------------
     // Stop if information is missing
-    // --------------------------------
-
     if (missingFields.length > 0) {
-
       setStatus({
         type: "error",
         message: (
@@ -206,76 +151,43 @@ function AcademicProfile() {
       return;
     }
 
-
-    // --------------------------------
     // Calculate APS
-    // --------------------------------
-
     const calculatedAPS = calculateAPS(results);
 
-
-    // --------------------------------
     // Save results
-    // --------------------------------
-
     setIsSaving(true);
     setStatus(null);
 
     setTimeout(() => {
-
       setStudentMarks(results);
-
       setAPS(calculatedAPS);
-
       setIsSaving(false);
 
       setStatus({
         type: "success",
         message: `Academic profile saved successfully. Your APS is ${calculatedAPS}.`
       });
-
     }, 500);
-
   };
 
-
-  // --------------------------------
   // Reset profile
-  // --------------------------------
-
   const handleReset = () => {
-
     const confirmReset = window.confirm(
       "Reset all saved academic information?"
     );
 
     if (confirmReset) {
-
       resetProfile();
-
       navigate("/");
-
     }
-
   };
 
-
-  // --------------------------------
-  // Page
-  // --------------------------------
-
   return (
-
     <>
-
       <Navbar />
 
-
       <section className="profile-page">
-
-
         <div className="profile-header">
-
           <h1>Academic Profile</h1>
 
           <p>
@@ -283,15 +195,10 @@ function AcademicProfile() {
             automatically use this information when checking
             programme eligibility.
           </p>
-
         </div>
 
-
         <div className="profile-dashboard">
-
-
           {/* Status Messages */}
-
           {isSaving && (
             <div className="profile-status loading">
               Saving your academic profile...
@@ -299,20 +206,20 @@ function AcademicProfile() {
           )}
 
           {status && !isSaving && (
-            <div className={`profile-status ${status.type}`}>
+            <div
+              className={`profile-status ${status.type}`}
+              role="status"
+              aria-live="polite"
+            >
               {status.message}
             </div>
           )}
 
-
           {/* Student Information */}
-
           <div className="profile-card">
-
             <h2>Student Information</h2>
 
             <div className="profile-grid">
-
               <div className="form-field">
                 <label htmlFor="firstName">First Name</label>
                 <input
@@ -320,14 +227,10 @@ function AcademicProfile() {
                   type="text"
                   value={studentProfile.firstName}
                   onChange={(e) =>
-                    handleProfileChange(
-                      "firstName",
-                      e.target.value
-                    )
+                    handleProfileChange("firstName", e.target.value)
                   }
                 />
               </div>
-
 
               <div className="form-field">
                 <label htmlFor="surname">Surname</label>
@@ -336,14 +239,10 @@ function AcademicProfile() {
                   type="text"
                   value={studentProfile.surname}
                   onChange={(e) =>
-                    handleProfileChange(
-                      "surname",
-                      e.target.value
-                    )
+                    handleProfileChange("surname", e.target.value)
                   }
                 />
               </div>
-
 
               <div className="form-field">
                 <label htmlFor="school">School</label>
@@ -352,14 +251,10 @@ function AcademicProfile() {
                   type="text"
                   value={studentProfile.school}
                   onChange={(e) =>
-                    handleProfileChange(
-                      "school",
-                      e.target.value
-                    )
+                    handleProfileChange("school", e.target.value)
                   }
                 />
               </div>
-
 
               <div className="form-field">
                 <label htmlFor="province">Province</label>
@@ -368,107 +263,63 @@ function AcademicProfile() {
                   type="text"
                   value={studentProfile.province}
                   onChange={(e) =>
-                    handleProfileChange(
-                      "province",
-                      e.target.value
-                    )
+                    handleProfileChange("province", e.target.value)
                   }
                 />
               </div>
-
             </div>
-
           </div>
-
 
           {/* Grade 12 Results */}
-
           <div className="profile-card">
-
             <h2>Grade 12 Results</h2>
 
-            <ResultsForm
-              onSubmit={handleResultsSubmit}
-            />
-
+            <ResultsForm onSubmit={handleResultsSubmit} />
           </div>
 
-
           {/* Academic Snapshot */}
-
           <h2>Academic Snapshot</h2>
 
-
           <div className="summary-item">
-
             <span>APS Score</span>
 
             <div className="aps-card">
-
               <h3>Your APS</h3>
 
-              <h1>
-                {aps ?? "--"}
-              </h1>
+              <h1>{aps ?? "--"}</h1>
 
               <p>
-
                 {aps !== null
                   ? "Calculated from your latest Grade 12 results."
-                  : "Enter your Grade 12 results to calculate your APS."
-                }
-
+                  : "Enter your Grade 12 results to calculate your APS."}
               </p>
-
             </div>
-
           </div>
-
 
           {/* University Count */}
-
           <div className="summary-item">
-
             <span>Universities</span>
-
-            <p>
-              {universityCount} Available
-            </p>
-
+            <p>{universityCount} Available</p>
           </div>
-
 
           {/* Programme Count */}
-
           <div className="summary-item">
-
             <span>Programmes</span>
-
-            <p>
-              {programmeCount} Available
-            </p>
-
+            <p>{programmeCount} Available</p>
           </div>
 
-
           {/* Reset */}
-
           <button
+            type="button"
             className="reset-btn"
             onClick={handleReset}
           >
             Reset Academic Profile
           </button>
-
-
         </div>
-
       </section>
-
     </>
-
   );
-
 }
 
 export default AcademicProfile;

@@ -2563,3 +2563,102 @@ body.dark-mode .programme-preview strong {
   }
 
 }
+
+
+/* DARK MODE - TEXT VISIBILITY FIX */
+
+body.dark-mode {
+  color: #f5f5f5;
+}
+
+/* General text */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode p,
+body.dark-mode label,
+body.dark-mode li,
+body.dark-mode span {
+  color: #f5f5f5;
+}
+
+/* Form fields */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #2b2b2b;
+  color: #f5f5f5;
+  border-color: #555;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #bdbdbd;
+}
+
+/* Links */
+body.dark-mode a {
+  color: #90caf9;
+}
+
+/* Buttons should remain readable */
+body.dark-mode button {
+  color: #f5f5f5;
+}
+
+
+/* PROGRAMME SEARCH LAYOUT FIX */
+
+.programmes-page .search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+  max-width: 650px;
+  margin: 24px auto 32px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.programmes-page .search-container label {
+  display: block;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.programmes-page .programme-search-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 13px 15px;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.programmes-page .search-results-count {
+  display: block;
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Keep spacing comfortable on smaller screens */
+@media (max-width: 600px) {
+  .programmes-page .search-container {
+    margin-top: 20px;
+    margin-bottom: 24px;
+    padding: 0 12px;
+  }
+}
+
+/* Dark mode */
+body.dark-mode .programmes-page .search-container label,
+body.dark-mode .programmes-page .search-results-count {
+  color: #f5f5f5;
+}
+

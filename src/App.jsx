@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -11,26 +12,26 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 
 function App() {
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("uniConnectTheme");
+
+    document.body.classList.toggle(
+      "dark-mode",
+      savedTheme === "dark"
+    );
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<Home />} />
-
         <Route path="/login" element={<Login />} />
-
         <Route path="/settings" element={<Settings />} />
-
         <Route path="/universities" element={<Universities />} />
-
         <Route path="/programmes" element={<Programmes />} />
-
         <Route path="/programmes/:id" element={<ProgrammeDetails />} />
-
         <Route path="/my-results" element={<MyResults />} />
-
         <Route path="/profile" element={<AcademicProfile />} />
-        
       </Routes>
     </BrowserRouter>
   );

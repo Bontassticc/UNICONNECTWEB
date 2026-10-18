@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 import Navbar from "../components/Navbar";
@@ -9,17 +10,17 @@ function Programmes() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredProgrammes = programmes.filter((programme) => {
-    const search = searchTerm.toLowerCase();
+    const search = searchTerm.trim().toLowerCase();
 
     const name = programme.name?.toLowerCase() || "";
     const university = programme.university?.toLowerCase() || "";
-    const faculty = programme.faculty?.toLowerCase() || "";
+    const field = programme.field?.toLowerCase() || "";
     const qualification = programme.qualification?.toLowerCase() || "";
 
     return (
       name.includes(search) ||
       university.includes(search) ||
-      faculty.includes(search) ||
+      field.includes(search) ||
       qualification.includes(search)
     );
   });
@@ -29,46 +30,53 @@ function Programmes() {
       <Navbar />
 
       <section className="programmes-page">
-
         <div className="programmes-header">
-
           <h1>Explore Programmes</h1>
 
           <p>
             Browse university programmes and discover where your matric
             results can take you.
           </p>
-
         </div>
 
-        <div className="search-container">
 
-          <input
-            type="text"
-            placeholder="Search for a programme..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+<div className="search-container">
+  <label htmlFor="programme-search">
+    Search programmes
+  </label>
 
-        </div>
+  <input
+    id="programme-search"
+    type="text"
+    className="programme-search-input"
+    placeholder="Search by programme, university, field or qualification..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+
+  {searchTerm.trim() !== "" && (
+    <p className="search-results-count" aria-live="polite">
+      {filteredProgrammes.length}{" "}
+      {filteredProgrammes.length === 1
+        ? "programme"
+        : "programmes"}{" "}
+      found
+    </p>
+  )}
+</div>
+
 
         {filteredProgrammes.length > 0 ? (
-
           <div className="programmes-grid">
-
             {filteredProgrammes.map((programme) => (
               <ProgrammeCard
                 key={programme.id}
                 programme={programme}
               />
             ))}
-
           </div>
-
         ) : (
-
-          <div className="programme-empty-state">
-
+          <div className="programme-empty-state" role="status">
             <h2>No programmes found</h2>
 
             <p>
@@ -76,14 +84,19 @@ function Programmes() {
             </p>
 
             <p>
-              Try searching for a different programme, university,
-              or qualification.
+              Try a programme name, university, field such as Technology,
+              Business or Engineering, or a qualification such as Diploma.
             </p>
 
+            <button
+              type="button"
+              className="primary-btn"
+              onClick={() => setSearchTerm("")}
+            >
+              Clear Search
+            </button>
           </div>
-
         )}
-
       </section>
     </>
   );

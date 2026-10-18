@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AcademicContext } from "../context/AcademicContext";
@@ -5,14 +6,10 @@ import { AcademicContext } from "../context/AcademicContext";
 function ProgrammeCard({ programme }) {
   const { aps, studentMarks } = useContext(AcademicContext);
 
-  // --------------------------------
   // Find student's mark
-  // --------------------------------
-
   const findStudentMark = (type, allowedSubjects = []) => {
     const results = Object.values(studentMarks);
 
-    // Mathematics
     if (type === "mathematics") {
       const result = results.find(
         (item) => item.subject === "Mathematics"
@@ -21,7 +18,6 @@ function ProgrammeCard({ programme }) {
       return result ? Number(result.mark) : null;
     }
 
-    // Mathematics OR Mathematical Literacy
     if (type === "mathematicsOrLiteracy") {
       const result = results.find(
         (item) =>
@@ -32,7 +28,6 @@ function ProgrammeCard({ programme }) {
       return result ? Number(result.mark) : null;
     }
 
-    // First Additional Language
     if (type === "firstAdditionalLanguage") {
       const result = results.find(
         (item) =>
@@ -43,7 +38,6 @@ function ProgrammeCard({ programme }) {
       return result ? Number(result.mark) : null;
     }
 
-    // Specific elective
     if (type === "elective") {
       const result = results.find(
         (item) => allowedSubjects.includes(item.subject)
@@ -55,18 +49,12 @@ function ProgrammeCard({ programme }) {
     return null;
   };
 
-  // --------------------------------
   // Check if student has results
-  // --------------------------------
-
   const hasResults =
     aps !== null &&
     Object.keys(studentMarks).length > 0;
 
-  // --------------------------------
   // Determine eligibility
-  // --------------------------------
-
   let eligibility = {
     text: "Complete Academic Profile",
     className: "eligibility-grey"
@@ -75,31 +63,25 @@ function ProgrammeCard({ programme }) {
   if (hasResults) {
     const apsPassed = aps >= programme.minAPS;
 
-    const requirementResults = programme.requirements.map(
-      (requirement) => {
-        const studentMark = findStudentMark(
-          requirement.type,
-          requirement.subjects || []
-        );
+    const requirementResults = (
+      programme.requirements || []
+    ).map((requirement) => {
+      const studentMark = findStudentMark(
+        requirement.type,
+        requirement.subjects || []
+      );
 
-        return (
-          studentMark !== null &&
-          studentMark >= requirement.minimumMark
-        );
-      }
-    );
+      return (
+        studentMark !== null &&
+        studentMark >= requirement.minimumMark
+      );
+    });
 
     const subjectsPassed = requirementResults.every(
       (result) => result
     );
 
-    const eligible =
-      apsPassed &&
-      subjectsPassed;
-
-    // --------------------------------
-    // Display result
-    // --------------------------------
+    const eligible = apsPassed && subjectsPassed;
 
     if (eligible) {
       eligibility = {
@@ -124,36 +106,33 @@ function ProgrammeCard({ programme }) {
     }
   }
 
+  // Display a fallback when application status is not provided
+  const applicationStatus =
+    programme.applicationStatus || "Admissions Information";
+
   return (
     <div className="programme-card">
-
       <div className="programme-card-header">
-
         <span className="programme-university">
           {programme.university}
         </span>
 
         <span className="programme-status">
-          {programme.applicationStatus}
+          {applicationStatus}
         </span>
-
       </div>
 
-      <h2>
-        {programme.name}
-      </h2>
+      <h2>{programme.name}</h2>
 
       <p className="programme-description">
         {programme.description ||
-          `${programme.name} at ${programme.university}.`
-        }
+          `${programme.name} at ${programme.university}.`}
       </p>
 
       <div className="programme-details">
-
         <div>
           <strong>Field</strong>
-          <p>{programme.field}</p>
+          <p>{programme.field || "Not specified"}</p>
         </div>
 
         <div>
@@ -164,7 +143,6 @@ function ProgrammeCard({ programme }) {
         <div className={eligibility.className}>
           {eligibility.text}
         </div>
-
       </div>
 
       <Link
@@ -173,7 +151,6 @@ function ProgrammeCard({ programme }) {
       >
         View Details
       </Link>
-
     </div>
   );
 }

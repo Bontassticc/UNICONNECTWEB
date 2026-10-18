@@ -1,23 +1,32 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+
+import React, { useContext, useState } from "react";
 
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
 
 import { AcademicContext } from "../context/AcademicContext";
+import { calculateAPS } from "../utils/apsCalculator";
 
 function MyResults() {
-  const navigate = useNavigate();
+  const {
+    studentMarks,
+    setStudentMarks,
+    aps,
+    setAPS
+  } = useContext(AcademicContext);
 
-  const { setStudentMarks } = useContext(AcademicContext);
+  const [submittedAPS, setSubmittedAPS] = useState(null);
 
   const handleSubmit = (results) => {
-    console.log(results);
+    const calculatedAPS = calculateAPS(results);
 
     setStudentMarks(results);
-
-    navigate("/programmes");
+    setAPS(calculatedAPS);
+    setSubmittedAPS(calculatedAPS);
   };
+
+  const displayedAPS =
+    submittedAPS !== null ? submittedAPS : aps;
 
   return (
     <>
@@ -33,6 +42,25 @@ function MyResults() {
         </div>
 
         <ResultsForm onSubmit={handleSubmit} />
+
+        {displayedAPS !== null && (
+          <section
+            className="aps-result"
+            aria-live="polite"
+          >
+            <h2>Your APS Score</h2>
+
+            <p>
+              Your calculated APS is:
+              {" "}
+              <strong>{displayedAPS}</strong>
+            </p>
+
+            <p>
+              You can now use this score when exploring programmes.
+            </p>
+          </section>
+        )}
       </section>
     </>
   );
