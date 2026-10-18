@@ -1,5 +1,5 @@
 
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
@@ -9,7 +9,6 @@ import { calculateAPS } from "../utils/apsCalculator";
 
 function MyResults() {
   const {
-    studentMarks,
     setStudentMarks,
     aps,
     setAPS

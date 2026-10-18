@@ -1,4 +1,4 @@
-import React from "react";
+
 
 function SubjectRow({
   label,

@@ -1,11 +1,10 @@
-import React, {
-  createContext,
+import {
   useEffect,
   useRef,
   useState
 } from "react";
+import { AcademicContext } from "./AcademicContextValue";
 
-export const AcademicContext = createContext();
 
 const emptyProfile = {
   firstName: "",
