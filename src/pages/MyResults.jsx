@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
 
-import { AcademicContext } from "../context/AcademicContext";
+import { AcademicContext } from "../context/AcademicContextValue";
 import { calculateAPS } from "../utils/apsCalculator";
 
 function MyResults() {

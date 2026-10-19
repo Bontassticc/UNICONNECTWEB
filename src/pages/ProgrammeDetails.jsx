@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { AcademicContext } from "../context/AcademicContext";
+import { AcademicContext } from "../context/AcademicContextValue";
 import Navbar from "../components/Navbar";
 import programmes from "../data/programmes";
 

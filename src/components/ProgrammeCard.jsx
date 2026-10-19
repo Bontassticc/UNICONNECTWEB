@@ -1,7 +1,7 @@
 
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AcademicContext } from "../context/AcademicContext";
+import { AcademicContext } from "../context/AcademicContextValue";
 
 function ProgrammeCard({ programme }) {
   const { aps, studentMarks } = useContext(AcademicContext);

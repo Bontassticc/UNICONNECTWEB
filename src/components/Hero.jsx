@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { AcademicContext } from "../context/AcademicContext";
+import { AcademicContext } from "../context/AcademicContextValue";
 
 import universities from "../data/universities";
 import programmes from "../data/programmes";

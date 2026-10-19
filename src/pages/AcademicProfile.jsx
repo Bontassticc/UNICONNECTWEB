@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
 import { calculateAPS } from "../utils/apsCalculator";
-import { AcademicContext } from "../context/AcademicContext";
+import { AcademicContext } from "../context/AcademicContextValue";
 import { useNavigate } from "react-router-dom";
 import universities from "../data/universities";
 import programmes from "../data/programmes";

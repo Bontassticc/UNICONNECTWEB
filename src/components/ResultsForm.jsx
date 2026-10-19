@@ -1,6 +1,6 @@
 
 import { useState, useContext, useEffect, useRef } from "react";
-import { AcademicContext } from "../context/AcademicContext";
+import { AcademicContext } from "../context/AcademicContextValue";
 
 import SubjectRow from "./SubjectRow";
 import subjects from "../data/subjects";
