@@ -17,23 +17,26 @@ const emptyProfile = {
 };
 
 const emptyAcademicData = {
-  profile: emptyProfile,
+  profile: { ...emptyProfile },
   marks: {},
   aps: null,
   selectedProgramme: null
 };
 
 export function AcademicProvider({ children }) {
-  const [studentProfile, setStudentProfile] = useState(emptyProfile);
+  const [studentProfile, setStudentProfile] = useState({
+    ...emptyProfile
+  });
   const [studentMarks, setStudentMarks] = useState({});
   const [aps, setAPS] = useState(null);
   const [selectedProgramme, setSelectedProgramme] = useState(null);
 
+  // Block saving until the current account has finished loading.
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
   const activeEmailRef = useRef(
     localStorage.getItem("uniConnectUserEmail")
   );
-
-  const isLoadingUser = useRef(false);
 
   const getUsers = useCallback(() => {
     const savedUsers = localStorage.getItem("uniConnectUsers");
@@ -44,63 +47,76 @@ export function AcademicProvider({ children }) {
     localStorage.setItem("uniConnectUsers", JSON.stringify(users));
   }, []);
 
-  const loadUserData = useCallback((email) => {
-    if (!email) return;
+  const loadUserData = useCallback(
+    (email) => {
+      if (!email) return;
 
-    isLoadingUser.current = true;
+      setIsLoadingUser(true);
 
-    const users = getUsers();
-    let userData = users[email];
+      const users = getUsers();
+      let userData = users[email];
 
-    if (!userData) {
-      const oldProfile = localStorage.getItem("studentProfile");
-      const oldMarks = localStorage.getItem("studentMarks");
-      const oldAPS = localStorage.getItem("studentAPS");
-      const oldProgramme = localStorage.getItem("selectedProgramme");
+      // Migrate data from the older storage format when needed.
+      if (!userData) {
+        const oldProfile = localStorage.getItem("studentProfile");
+        const oldMarks = localStorage.getItem("studentMarks");
+        const oldAPS = localStorage.getItem("studentAPS");
+        const oldProgramme = localStorage.getItem("selectedProgramme");
 
-      if (oldProfile || oldMarks || oldAPS || oldProgramme) {
-        userData = {
-          profile: oldProfile ? JSON.parse(oldProfile) : { ...emptyProfile },
-          marks: oldMarks ? JSON.parse(oldMarks) : {},
-          aps: oldAPS ? Number(oldAPS) : null,
-          selectedProgramme: oldProgramme
-            ? JSON.parse(oldProgramme)
-            : null
-        };
-      } else {
-        userData = {
-          ...emptyAcademicData,
-          profile: { ...emptyProfile },
-          marks: {}
-        };
+        if (oldProfile || oldMarks || oldAPS || oldProgramme) {
+          userData = {
+            profile: oldProfile
+              ? JSON.parse(oldProfile)
+              : { ...emptyProfile },
+            marks: oldMarks ? JSON.parse(oldMarks) : {},
+            aps: oldAPS ? Number(oldAPS) : null,
+            selectedProgramme: oldProgramme
+              ? JSON.parse(oldProgramme)
+              : null
+          };
+        } else {
+          userData = {
+            ...emptyAcademicData,
+            profile: { ...emptyProfile },
+            marks: {}
+          };
+        }
+
+        users[email] = userData;
+        saveUsers(users);
+
+        localStorage.removeItem("studentProfile");
+        localStorage.removeItem("studentMarks");
+        localStorage.removeItem("studentAPS");
+        localStorage.removeItem("selectedProgramme");
       }
 
-      users[email] = userData;
-      saveUsers(users);
+      // Restore all saved information before enabling saving.
+      setStudentProfile({
+        ...emptyProfile,
+        ...(userData.profile || {})
+      });
+      setStudentMarks(userData.marks || {});
+      setAPS(userData.aps ?? null);
+      setSelectedProgramme(userData.selectedProgramme ?? null);
 
-      localStorage.removeItem("studentProfile");
-      localStorage.removeItem("studentMarks");
-      localStorage.removeItem("studentAPS");
-      localStorage.removeItem("selectedProgramme");
-    }
+      activeEmailRef.current = email;
 
-    setStudentProfile(userData.profile || { ...emptyProfile });
-    setStudentMarks(userData.marks || {});
-    setAPS(userData.aps ?? null);
-    setSelectedProgramme(userData.selectedProgramme || null);
+      // React applies these state updates together. The save effects
+      // will run with the restored values, not the initial empty values.
+      setIsLoadingUser(false);
+    },
+    [getUsers, saveUsers]
+  );
 
-    activeEmailRef.current = email;
-
-    setTimeout(() => {
-      isLoadingUser.current = false;
-    }, 0);
-  }, [getUsers, saveUsers]);
-
-  // Load the current logged-in user
+  // Load the current account on startup.
   useEffect(() => {
     const email = localStorage.getItem("uniConnectUserEmail");
 
-    if (!email) return undefined;
+    if (!email) {
+      activeEmailRef.current = null;
+      return undefined;
+    }
 
     const timerId = setTimeout(() => {
       loadUserData(email);
@@ -109,7 +125,7 @@ export function AcademicProvider({ children }) {
     return () => clearTimeout(timerId);
   }, [loadUserData]);
 
-  // Listen for login/logout changes
+  // Respond to login and logout events.
   useEffect(() => {
     const handleUserChange = () => {
       const isLoggedIn =
@@ -120,33 +136,37 @@ export function AcademicProvider({ children }) {
       if (isLoggedIn && email) {
         loadUserData(email);
       } else {
-        isLoadingUser.current = true;
+        // Stop save effects before clearing the account's information.
+        setIsLoadingUser(true);
+        activeEmailRef.current = null;
 
         setStudentProfile({ ...emptyProfile });
         setStudentMarks({});
         setAPS(null);
         setSelectedProgramme(null);
 
-        activeEmailRef.current = null;
-
-        setTimeout(() => {
-          isLoadingUser.current = false;
-        }, 0);
+        setIsLoadingUser(false);
       }
     };
 
-    window.addEventListener("uniConnectUserChanged", handleUserChange);
+    window.addEventListener(
+      "uniConnectUserChanged",
+      handleUserChange
+    );
 
     return () => {
-      window.removeEventListener("uniConnectUserChanged", handleUserChange);
+      window.removeEventListener(
+        "uniConnectUserChanged",
+        handleUserChange
+      );
     };
   }, [loadUserData]);
 
-  // Save profile
+  // Save profile details.
   useEffect(() => {
     const email = activeEmailRef.current;
 
-    if (!email || isLoadingUser.current) return;
+    if (!email || isLoadingUser) return;
 
     const users = getUsers();
     const existingUser = users[email] || {
@@ -159,13 +179,13 @@ export function AcademicProvider({ children }) {
     };
 
     saveUsers(users);
-  }, [studentProfile, getUsers, saveUsers]);
+  }, [studentProfile, isLoadingUser, getUsers, saveUsers]);
 
-  // Save marks
+  // Save matric marks.
   useEffect(() => {
     const email = activeEmailRef.current;
 
-    if (!email || isLoadingUser.current) return;
+    if (!email || isLoadingUser) return;
 
     const users = getUsers();
     const existingUser = users[email] || {
@@ -178,13 +198,13 @@ export function AcademicProvider({ children }) {
     };
 
     saveUsers(users);
-  }, [studentMarks, getUsers, saveUsers]);
+  }, [studentMarks, isLoadingUser, getUsers, saveUsers]);
 
-  // Save APS
+  // Save APS.
   useEffect(() => {
     const email = activeEmailRef.current;
 
-    if (!email || isLoadingUser.current) return;
+    if (!email || isLoadingUser) return;
 
     const users = getUsers();
     const existingUser = users[email] || {
@@ -197,13 +217,13 @@ export function AcademicProvider({ children }) {
     };
 
     saveUsers(users);
-  }, [aps, getUsers, saveUsers]);
+  }, [aps, isLoadingUser, getUsers, saveUsers]);
 
-  // Save selected programme
+  // Save the selected programme.
   useEffect(() => {
     const email = activeEmailRef.current;
 
-    if (!email || isLoadingUser.current) return;
+    if (!email || isLoadingUser) return;
 
     const users = getUsers();
     const existingUser = users[email] || {
@@ -216,18 +236,20 @@ export function AcademicProvider({ children }) {
     };
 
     saveUsers(users);
-  }, [selectedProgramme, getUsers, saveUsers]);
+  }, [
+    selectedProgramme,
+    isLoadingUser,
+    getUsers,
+    saveUsers
+  ]);
 
-  // Reset current user's academic data
+  // Reset the current user's academic data when explicitly requested.
   const resetProfile = useCallback(() => {
     const email = activeEmailRef.current;
 
-    setStudentProfile({ ...emptyProfile });
-    setStudentMarks({});
-    setAPS(null);
-    setSelectedProgramme(null);
-
     if (!email) return;
+
+    setIsLoadingUser(true);
 
     const users = getUsers();
 
@@ -238,6 +260,13 @@ export function AcademicProvider({ children }) {
     };
 
     saveUsers(users);
+
+    setStudentProfile({ ...emptyProfile });
+    setStudentMarks({});
+    setAPS(null);
+    setSelectedProgramme(null);
+
+    setIsLoadingUser(false);
   }, [getUsers, saveUsers]);
 
   return (
@@ -258,3 +287,4 @@ export function AcademicProvider({ children }) {
     </AcademicContext.Provider>
   );
 }
+
