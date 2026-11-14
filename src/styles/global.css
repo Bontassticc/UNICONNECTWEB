@@ -4354,3 +4354,339 @@ body.dark-mode .profile-page .snapshot-card:not(.snapshot-aps) .snapshot-label,
 body.dark-mode .profile-page .snapshot-note {
   color: #cbd5e1;
 }
+
+
+/* =========================================
+   ACADEMIC PROFILE - RESULTS FORM REFINEMENT
+========================================= */
+
+.profile-page .results-form {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Form introduction */
+
+.profile-page .results-form-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.profile-page .results-form-heading h3 {
+  margin: 0 0 8px;
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.profile-page .results-form-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.profile-page .results-required-badge {
+  flex-shrink: 0;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Column headings */
+
+.profile-page .results-column-headings {
+  display: grid;
+  grid-template-columns: 1fr 2fr 110px;
+  gap: 18px;
+  padding: 0 16px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-page .results-column-headings span {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Subject rows */
+
+.profile-page .subject-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 110px;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 15px 16px;
+  border-bottom: 1px solid #edf2f7;
+  background: transparent;
+  border-radius: 0;
+}
+
+.profile-page .subject-row:last-of-type {
+  border-bottom: none;
+}
+
+.profile-page .subject-category label {
+  display: block;
+  margin: 0;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.profile-page .subject-select,
+.profile-page .subject-mark {
+  width: 100%;
+  min-width: 0;
+}
+
+.profile-page .subject-select select,
+.profile-page .subject-mark input {
+  display: block;
+  width: 100%;
+  height: 46px;
+  min-width: 0;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid #dbe2ea;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.profile-page .subject-select select:focus,
+.profile-page .subject-mark input:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 1px;
+  border-color: #2563eb;
+}
+
+.profile-page .subject-mobile-label {
+  display: none;
+}
+
+/* Save button */
+
+.profile-page .results-form > .primary-btn {
+  display: block;
+  width: fit-content;
+  margin: 28px 0 0 auto;
+  padding: 14px 26px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .profile-page .results-column-headings,
+  .profile-page .subject-row {
+    grid-template-columns: 1fr 1.5fr 100px;
+    gap: 12px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .profile-page .results-column-headings {
+    display: none;
+  }
+
+  .profile-page .results-form-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .profile-page .subject-row {
+    grid-template-columns: minmax(0, 1fr) 100px;
+    gap: 12px;
+    padding: 18px 0;
+  }
+
+  .profile-page .subject-category {
+    grid-column: 1 / -1;
+  }
+
+  .profile-page .subject-category label {
+    font-size: 14px;
+  }
+
+  .profile-page .subject-mobile-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .profile-page .results-form > .primary-btn {
+    width: 100%;
+    margin-top: 24px;
+  }
+}
+
+/* Dark mode */
+
+body.dark-mode .profile-page .results-form-heading h3,
+body.dark-mode .profile-page .subject-category label {
+  color: #f5f5f5;
+}
+
+body.dark-mode .profile-page .results-form-heading p,
+body.dark-mode .profile-page .results-column-headings span,
+body.dark-mode .profile-page .subject-mobile-label {
+  color: #cbd5e1;
+}
+
+body.dark-mode .profile-page .subject-row,
+body.dark-mode .profile-page .results-column-headings {
+  border-bottom-color: #444;
+}
+
+body.dark-mode .profile-page .subject-select select,
+body.dark-mode .profile-page .subject-mark input {
+  background: #333;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+
+/* =========================================
+   ACADEMIC PROFILE - STUDENT INFORMATION
+========================================= */
+
+.profile-page .profile-card {
+  border: 1px solid #edf0f5;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 8px 26px rgba(15, 23, 42, 0.04);
+}
+
+.profile-page .profile-card h2 {
+  margin-bottom: 26px;
+  color: #111827;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.profile-page .profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 20px;
+}
+
+.profile-page .profile-grid .form-field {
+  min-width: 0;
+}
+
+.profile-page .profile-grid .form-field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.profile-page .profile-grid .form-field input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 16px;
+  border: 1px solid #dbe2ea;
+  border-radius: 11px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.profile-page .profile-grid .form-field input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Reset action */
+
+.profile-page .reset-btn {
+  display: block;
+  width: fit-content;
+  margin: 28px 0 0 auto;
+  padding: 12px 18px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  background: #fff;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background 0.2s ease;
+}
+
+.profile-page .reset-btn:hover {
+  background: #fef2f2;
+}
+
+.profile-page .reset-btn:focus-visible {
+  outline: 3px solid #fca5a5;
+  outline-offset: 2px;
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .profile-page .profile-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .profile-page .reset-btn {
+    width: 100%;
+  }
+}
+
+/* Dark mode */
+
+body.dark-mode .profile-page .profile-card {
+  background: #2b2b2b;
+  border-color: #444;
+}
+
+body.dark-mode .profile-page .profile-card h2,
+body.dark-mode .profile-page .profile-grid .form-field label {
+  color: #f5f5f5;
+}
+
+body.dark-mode .profile-page .profile-grid .form-field input {
+  background: #333;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+body.dark-mode .profile-page .reset-btn {
+  background: transparent;
+  border-color: #b91c1c;
+  color: #fca5a5;
+}
+
+

@@ -170,12 +170,37 @@ function ResultsForm({ onSubmit }) {
 
   return (
     <form className="results-form" onSubmit={handleSubmit}>
+
+      {/* Validation Error */}
       {error && (
         <div className="profile-status error" role="alert">
           {error}
         </div>
       )}
 
+      {/* Form Introduction */}
+      <div className="results-form-heading">
+        <div>
+          <h3>Your Subjects & Marks</h3>
+          <p>
+            Enter your Grade 12 subjects and percentage marks.
+            Seven subjects are required.
+          </p>
+        </div>
+
+        <span className="results-required-badge">
+          7 Required
+        </span>
+      </div>
+
+      {/* Column Headings */}
+      <div className="results-column-headings">
+        <span>Category</span>
+        <span>Subject</span>
+        <span>Mark (%)</span>
+      </div>
+
+      {/* Home Language */}
       <SubjectRow
         label="Home Language"
         subjects={homeLanguages}
@@ -189,6 +214,7 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* First Additional Language */}
       <SubjectRow
         label="First Additional Language"
         subjects={firstAdditionalLanguages}
@@ -202,6 +228,7 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* Mathematics */}
       <SubjectRow
         label="Mathematics"
         subjects={mathsSubjects}
@@ -215,6 +242,7 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* Life Orientation */}
       <SubjectRow
         label="Life Orientation"
         subjects={lifeOrientation}
@@ -228,6 +256,7 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* Elective 1 */}
       <SubjectRow
         label="Elective 1"
         subjects={electives}
@@ -241,6 +270,7 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* Elective 2 */}
       <SubjectRow
         label="Elective 2"
         subjects={electives}
@@ -254,6 +284,7 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* Elective 3 */}
       <SubjectRow
         label="Elective 3"
         subjects={electives}
@@ -267,6 +298,7 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* Elective 4 (Optional) */}
       <SubjectRow
         label="Elective 4 (Optional)"
         subjects={electives}
@@ -280,9 +312,11 @@ function ResultsForm({ onSubmit }) {
         }
       />
 
+      {/* Save Button */}
       <button className="primary-btn" type="submit">
         Save Academic Profile
       </button>
+
     </form>
   );
 }

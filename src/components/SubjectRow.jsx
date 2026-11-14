@@ -1,5 +1,4 @@
 
-
 function SubjectRow({
   label,
   subjects,
@@ -8,49 +7,46 @@ function SubjectRow({
   onSubjectChange,
   onMarkChange,
 }) {
-
-  // Create unique IDs for each subject row
   const fieldId = label.toLowerCase().replace(/\s+/g, "-");
 
   return (
-
     <div className="subject-row">
 
-      <div className="subject-select">
-
+      {/* Subject Category */}
+      <div className="subject-category">
         <label htmlFor={`${fieldId}-subject`}>
           {label}
         </label>
+      </div>
 
+      {/* Subject Selection */}
+      <div className="subject-select">
         <select
           id={`${fieldId}-subject`}
           value={value}
-          onChange={(e) => onSubjectChange(e.target.value)}
+          onChange={(e) =>
+            onSubjectChange(e.target.value)
+          }
         >
-
           <option value="">Select Subject</option>
 
           {subjects.map((subject) => (
-
             <option
               key={subject.id}
               value={subject.name}
             >
-
               {subject.name}
-
             </option>
-
           ))}
-
         </select>
-
       </div>
 
-
+      {/* Mark Input */}
       <div className="subject-mark">
-
-        <label htmlFor={`${fieldId}-mark`}>
+        <label
+          className="subject-mobile-label"
+          htmlFor={`${fieldId}-mark`}
+        >
           Mark (%)
         </label>
 
@@ -59,17 +55,16 @@ function SubjectRow({
           type="number"
           min="0"
           max="100"
-          placeholder="0-100"
+          placeholder="0–100"
           value={mark}
-          onChange={(e) => onMarkChange(e.target.value)}
+          onChange={(e) =>
+            onMarkChange(e.target.value)
+          }
         />
-
       </div>
 
     </div>
-
   );
-
 }
 
 export default SubjectRow;
