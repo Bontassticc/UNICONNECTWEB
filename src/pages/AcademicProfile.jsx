@@ -187,8 +187,14 @@ function AcademicProfile() {
       <Navbar />
 
       <section className="profile-page">
-        <div className="profile-header">
-          <h1>Academic Profile</h1>
+       <div className="profile-header">
+       <span className="profile-eyebrow">
+           YOUR STUDENT DASHBOARD
+      </span>
+
+      <h1>
+          Academic <span>Profile</span>
+      </h1>
 
           <p>
             Complete your academic profile once. UniConnect will
@@ -277,36 +283,82 @@ function AcademicProfile() {
             <ResultsForm onSubmit={handleResultsSubmit} />
           </div>
 
-          {/* Academic Snapshot */}
-          <h2>Academic Snapshot</h2>
 
-          <div className="summary-item">
-            <span>APS Score</span>
+{/* Academic Snapshot */}
+<div className="academic-snapshot">
 
-            <div className="aps-card">
-              <h3>Your APS</h3>
+  <div className="snapshot-header">
+    <div>
+      <h2>Academic Snapshot</h2>
+      <p>
+        A quick overview of your academic progress
+        and opportunities on UniConnect.
+      </p>
+    </div>
+  </div>
 
-              <h1>{aps ?? "--"}</h1>
+  <div className="snapshot-grid">
 
-              <p>
-                {aps !== null
-                  ? "Calculated from your latest Grade 12 results."
-                  : "Enter your Grade 12 results to calculate your APS."}
-              </p>
-            </div>
-          </div>
+    {/* APS Card */}
+    <div className="snapshot-card snapshot-aps">
+      <div className="snapshot-card-top">
+        <span className="snapshot-label">
+          Your APS Score
+        </span>
+        <span className="snapshot-icon">★</span>
+      </div>
 
-          {/* University Count */}
-          <div className="summary-item">
-            <span>Universities</span>
-            <p>{universityCount} Available</p>
-          </div>
+      <div className="snapshot-value">
+        {aps ?? "--"}
+      </div>
 
-          {/* Programme Count */}
-          <div className="summary-item">
-            <span>Programmes</span>
-            <p>{programmeCount} Available</p>
-          </div>
+      <p>
+        {aps !== null
+          ? "Calculated from your saved Grade 12 results."
+          : "Save your Grade 12 results to calculate your APS."}
+      </p>
+    </div>
+
+    {/* Universities Card */}
+    <div className="snapshot-card">
+      <div className="snapshot-card-top">
+        <span className="snapshot-label">
+          Universities
+        </span>
+        <span className="snapshot-icon">🎓</span>
+      </div>
+
+      <div className="snapshot-value">
+        {universityCount}
+      </div>
+
+      <p>Institutions to explore</p>
+    </div>
+
+    {/* Programmes Card */}
+    <div className="snapshot-card">
+      <div className="snapshot-card-top">
+        <span className="snapshot-label">
+          Programmes
+        </span>
+        <span className="snapshot-icon">📚</span>
+      </div>
+
+      <div className="snapshot-value">
+        {programmeCount}
+      </div>
+
+      <p>Programmes to discover</p>
+    </div>
+
+  </div>
+
+  <p className="snapshot-note">
+    APS requirements may differ between universities.
+    Explore individual programmes to check your eligibility.
+  </p>
+
+</div>
 
           {/* Reset */}
           <button

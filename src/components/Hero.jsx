@@ -1,3 +1,4 @@
+
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
@@ -9,13 +10,37 @@ import programmes from "../data/programmes";
 function Hero() {
   const { studentProfile, aps } = useContext(AcademicContext);
 
+  const snapshotItems = [
+    {
+      label: "Student",
+      value: studentProfile.firstName || "Guest",
+      icon: "👤",
+    },
+    {
+      label: "Current APS",
+      value: aps ?? "--",
+      icon: "🎓",
+    },
+    {
+      label: "Universities",
+      value: universities.length,
+      icon: "🏛️",
+    },
+    {
+      label: "Programmes",
+      value: programmes.length,
+      icon: "📚",
+    },
+  ];
+
   return (
     <section className="hero">
-
       <div className="hero-container">
 
-        {/* LEFT SIDE */}
         <div className="hero-content">
+          <span className="hero-eyebrow">
+            YOUR ACADEMIC JOURNEY STARTS HERE
+          </span>
 
           <h1>
             Your Future Starts With
@@ -29,7 +54,6 @@ function Hero() {
           </p>
 
           <div className="hero-buttons">
-
             <Link to="/profile">
               <button className="primary-btn">
                 Complete Academic Profile
@@ -41,60 +65,46 @@ function Hero() {
                 Explore Universities
               </button>
             </Link>
-
           </div>
-
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="hero-dashboard">
+          <div className="snapshot-heading">
+            <div>
+              <span className="snapshot-label">YOUR OVERVIEW</span>
+              <h3>Student Snapshot</h3>
+            </div>
 
-          <h3>Student Snapshot</h3>
-
-          <div className="snapshot-item">
-
-            <span>Student</span>
-
-            <strong>
-              {studentProfile.firstName || "Guest"}
-            </strong>
-
+            <span className="snapshot-decoration">✦</span>
           </div>
 
-          <div className="snapshot-item">
+          <p className="snapshot-description">
+            A quick overview of your academic information and
+            available study opportunities.
+          </p>
 
-            <span>APS</span>
+          <div className="snapshot-grid">
+            {snapshotItems.map((item) => (
+              <div className="snapshot-item" key={item.label}>
+                <div className="snapshot-icon">
+                  {item.icon}
+                </div>
 
-            <strong>
-              {aps ?? "--"}
-            </strong>
-
+                <div className="snapshot-details">
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="snapshot-item">
-
-            <span>Universities</span>
-
-            <strong>
-              {universities.length}
-            </strong>
-
+          <div className="snapshot-footer">
+            <span>✦</span>
+            Your academic journey, all in one place.
           </div>
-
-          <div className="snapshot-item">
-
-            <span>Programmes</span>
-
-            <strong>
-              {programmes.length}
-            </strong>
-
-          </div>
-
         </div>
 
       </div>
-
     </section>
   );
 }

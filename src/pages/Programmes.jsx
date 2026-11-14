@@ -25,46 +25,125 @@ function Programmes() {
     );
   });
 
+  const universityCount = new Set(
+    programmes.map((programme) => programme.university)
+  ).size;
+
+  const hasSearch = searchTerm.trim() !== "";
+
   return (
     <>
       <Navbar />
 
       <section className="programmes-page">
+
+        {/* Page Introduction */}
+
         <div className="programmes-header">
-          <h1>Explore Programmes</h1>
+          <span className="programmes-eyebrow">
+            DISCOVER YOUR POSSIBILITIES
+          </span>
+
+          <h1>
+            Explore <span>Programmes</span>
+          </h1>
 
           <p>
-            Browse university programmes and discover where your matric
-            results can take you.
+            Discover university programmes, compare entry
+            requirements and explore academic opportunities
+            that match your matric results.
           </p>
         </div>
 
+        {/* Search Panel */}
 
-<div className="search-container">
-  <label htmlFor="programme-search">
-    Search programmes
-  </label>
+        <div className="programme-search-panel">
 
-  <input
-    id="programme-search"
-    type="text"
-    className="programme-search-input"
-    placeholder="Search by programme, university, field or qualification..."
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-  />
+          <div className="programme-search-heading">
+            <div>
+              <h2>Find your next opportunity</h2>
+              <p>
+                Search by programme, university, field
+                or qualification.
+              </p>
+            </div>
 
-  {searchTerm.trim() !== "" && (
-    <p className="search-results-count" aria-live="polite">
-      {filteredProgrammes.length}{" "}
-      {filteredProgrammes.length === 1
-        ? "programme"
-        : "programmes"}{" "}
-      found
-    </p>
-  )}
-</div>
+            <div className="programme-total">
+              <strong>{programmes.length}</strong>
+              <span>Programmes available</span>
+            </div>
+          </div>
 
+          <div className="search-container">
+            <label htmlFor="programme-search">
+              Search programmes
+            </label>
+
+            <div className="programme-search-field">
+              <span
+                className="programme-search-icon"
+                aria-hidden="true"
+              >
+                ⌕
+              </span>
+
+              <input
+                id="programme-search"
+                type="search"
+                className="programme-search-input"
+                placeholder="Try Computer Science, Wits, Business..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="programme-search-footer">
+            <p aria-live="polite">
+              {hasSearch
+                ? `${filteredProgrammes.length} ${
+                    filteredProgrammes.length === 1
+                      ? "programme"
+                      : "programmes"
+                  } found`
+                : `Explore programmes across ${universityCount} universities`}
+            </p>
+
+            {hasSearch && (
+              <button
+                type="button"
+                className="programme-clear-search"
+                onClick={() => setSearchTerm("")}
+              >
+                Clear search
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Results Heading */}
+
+        <div className="programme-results-heading">
+          <div>
+            <h2>
+              {hasSearch
+                ? "Search Results"
+                : "Available Programmes"}
+            </h2>
+
+            <p>
+              {hasSearch
+                ? "Programmes matching your search"
+                : "Explore the academic opportunities available on UniConnect"}
+            </p>
+          </div>
+
+          <span className="programme-results-total">
+            {filteredProgrammes.length} results
+          </span>
+        </div>
+
+        {/* Programme Cards */}
 
         {filteredProgrammes.length > 0 ? (
           <div className="programmes-grid">
@@ -80,12 +159,14 @@ function Programmes() {
             <h2>No programmes found</h2>
 
             <p>
-              We couldn't find any programmes matching "{searchTerm}".
+              We couldn't find any programmes matching
+              "{searchTerm}".
             </p>
 
             <p>
-              Try a programme name, university, field such as Technology,
-              Business or Engineering, or a qualification such as Diploma.
+              Try a programme name, university, field such
+              as Technology, Business or Engineering,
+              or a qualification such as Diploma.
             </p>
 
             <button
@@ -97,6 +178,7 @@ function Programmes() {
             </button>
           </div>
         )}
+
       </section>
     </>
   );
