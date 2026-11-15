@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Settings from "./pages/Settings";
 
+import StudentAssistant from "./components/StudentAssistant";
+
 function App() {
   useEffect(() => {
     const savedTheme = localStorage.getItem("uniConnectTheme");
@@ -37,6 +39,8 @@ function App() {
         />
         <Route path="/profile" element={<AcademicProfile />} />
       </Routes>
+
+      <StudentAssistant />
     </BrowserRouter>
   );
 }
