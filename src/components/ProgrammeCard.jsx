@@ -1,12 +1,17 @@
 
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Bookmark, BookmarkCheck } from "lucide-react";
+
 import { AcademicContext } from "../context/AcademicContextValue";
 
-function ProgrammeCard({ programme }) {
+function ProgrammeCard({
+  programme,
+  isSaved = false,
+  onToggleSave
+}) {
   const { aps, studentMarks } = useContext(AcademicContext);
 
-  // Find student's mark
   const findStudentMark = (type, allowedSubjects = []) => {
     const results = Object.values(studentMarks);
 
@@ -49,12 +54,10 @@ function ProgrammeCard({ programme }) {
     return null;
   };
 
-  // Check if student has results
   const hasResults =
     aps !== null &&
     Object.keys(studentMarks).length > 0;
 
-  // Determine eligibility
   let eligibility = {
     text: "Complete Academic Profile",
     className: "eligibility-grey"
@@ -106,7 +109,6 @@ function ProgrammeCard({ programme }) {
     }
   }
 
-  // Display a fallback when application status is not provided
   const applicationStatus =
     programme.applicationStatus || "Admissions Information";
 
@@ -145,12 +147,34 @@ function ProgrammeCard({ programme }) {
         </div>
       </div>
 
-      <Link
-        to={`/programmes/${programme.id}`}
-        className="primary-btn"
-      >
-        View Details
-      </Link>
+      <div className="programme-card-actions">
+        <Link
+          to={`/programmes/${programme.id}`}
+          className="primary-btn"
+        >
+          View Details
+        </Link>
+
+        <button
+          type="button"
+          className={`programme-save-btn ${isSaved ? "saved" : ""}`}
+          onClick={() => onToggleSave?.(programme.id)}
+          aria-label={
+            isSaved
+              ? `Remove ${programme.name} from saved programmes`
+              : `Save ${programme.name}`
+          }
+          aria-pressed={isSaved}
+        >
+          {isSaved ? (
+            <BookmarkCheck size={18} />
+          ) : (
+            <Bookmark size={18} />
+          )}
+
+          {isSaved ? "Saved" : "Save"}
+        </button>
+      </div>
     </div>
   );
 }
