@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Bookmark, BookmarkCheck } from "lucide-react";
 
 import { AcademicContext } from "../context/AcademicContextValue";
+import { checkEligibility } from "../utils/checkEligibility";
 
 function ProgrammeCard({
   programme,
@@ -12,102 +13,21 @@ function ProgrammeCard({
 }) {
   const { aps, studentMarks } = useContext(AcademicContext);
 
-  const findStudentMark = (type, allowedSubjects = []) => {
-    const results = Object.values(studentMarks);
+  // Use the same eligibility logic as Programme Details.
+  const eligibilityResult = checkEligibility(
+    programme,
+    aps,
+    studentMarks
+  );
 
-    if (type === "mathematics") {
-      const result = results.find(
-        (item) => item.subject === "Mathematics"
-      );
-
-      return result ? Number(result.mark) : null;
-    }
-
-    if (type === "mathematicsOrLiteracy") {
-      const result = results.find(
-        (item) =>
-          item.subject === "Mathematics" ||
-          item.subject === "Mathematical Literacy"
-      );
-
-      return result ? Number(result.mark) : null;
-    }
-
-    if (type === "firstAdditionalLanguage") {
-      const result = results.find(
-        (item) =>
-          item.subject &&
-          item.subject.includes("First Additional Language")
-      );
-
-      return result ? Number(result.mark) : null;
-    }
-
-    if (type === "elective") {
-      const result = results.find(
-        (item) => allowedSubjects.includes(item.subject)
-      );
-
-      return result ? Number(result.mark) : null;
-    }
-
-    return null;
+  // Preserve the existing card wording for incomplete profiles.
+  const eligibility = {
+    text:
+      eligibilityResult.status === "Incomplete"
+        ? "Complete Academic Profile"
+        : eligibilityResult.status,
+    className: eligibilityResult.className
   };
-
-  const hasResults =
-    aps !== null &&
-    Object.keys(studentMarks).length > 0;
-
-  let eligibility = {
-    text: "Complete Academic Profile",
-    className: "eligibility-grey"
-  };
-
-  if (hasResults) {
-    const apsPassed = aps >= programme.minAPS;
-
-    const requirementResults = (
-      programme.requirements || []
-    ).map((requirement) => {
-      const studentMark = findStudentMark(
-        requirement.type,
-        requirement.subjects || []
-      );
-
-      return (
-        studentMark !== null &&
-        studentMark >= requirement.minimumMark
-      );
-    });
-
-    const subjectsPassed = requirementResults.every(
-      (result) => result
-    );
-
-    const eligible = apsPassed && subjectsPassed;
-
-    if (eligible) {
-      eligibility = {
-        text: "Eligible",
-        className: "eligibility-green"
-      };
-    } else if (apsPassed) {
-      eligibility = {
-        text: "Not Eligible",
-        className: "eligibility-red"
-      };
-    } else if (aps >= programme.minAPS - 2) {
-      eligibility = {
-        text: "Borderline",
-        className: "eligibility-orange"
-      };
-    } else {
-      eligibility = {
-        text: "Not Eligible",
-        className: "eligibility-red"
-      };
-    }
-  }
 
   const applicationStatus =
     programme.applicationStatus || "Admissions Information";
@@ -157,7 +77,9 @@ function ProgrammeCard({
 
         <button
           type="button"
-          className={`programme-save-btn ${isSaved ? "saved" : ""}`}
+          className={`programme-save-btn ${
+            isSaved ? "saved" : ""
+          }`}
           onClick={() => onToggleSave?.(programme.id)}
           aria-label={
             isSaved
@@ -167,9 +89,9 @@ function ProgrammeCard({
           aria-pressed={isSaved}
         >
           {isSaved ? (
-            <BookmarkCheck size={18} />
+            <BookmarkCheck size={18} aria-hidden="true" />
           ) : (
-            <Bookmark size={18} />
+            <Bookmark size={18} aria-hidden="true" />
           )}
 
           {isSaved ? "Saved" : "Save"}
