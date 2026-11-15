@@ -17,8 +17,13 @@ import {
 } from "lucide-react";
 
 function Navbar() {
-  const navigate = useNavigate();
   const location = useLocation();
+
+  return <NavbarContent key={location.pathname} />;
+}
+
+function NavbarContent() {
+  const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     () =>
@@ -28,6 +33,7 @@ function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Keep login status in sync with account changes.
   useEffect(() => {
     const checkLoginStatus = () => {
       setIsLoggedIn(
@@ -58,10 +64,6 @@ function Navbar() {
       );
     };
   }, []);
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [location.pathname]);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -112,7 +114,9 @@ function Navbar() {
         className={`hamburger ${
           menuOpen ? "active" : ""
         }`}
-        onClick={() => setMenuOpen(!menuOpen)}
+        onClick={() =>
+          setMenuOpen((previous) => !previous)
+        }
         aria-label={
           menuOpen
             ? "Close navigation menu"
