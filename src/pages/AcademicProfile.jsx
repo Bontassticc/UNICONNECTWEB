@@ -1,10 +1,12 @@
 
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GraduationCap, Landmark, BookOpen } from "lucide-react";
+
 import Navbar from "../components/Navbar";
 import ResultsForm from "../components/ResultsForm";
 import { calculateAPS } from "../utils/apsCalculator";
 import { AcademicContext } from "../context/AcademicContextValue";
-import { useNavigate } from "react-router-dom";
 import universities from "../data/universities";
 import programmes from "../data/programmes";
 
@@ -187,14 +189,14 @@ function AcademicProfile() {
       <Navbar />
 
       <section className="profile-page">
-       <div className="profile-header">
-       <span className="profile-eyebrow">
-           YOUR STUDENT DASHBOARD
-      </span>
+        <div className="profile-header">
+          <span className="profile-eyebrow">
+            YOUR STUDENT DASHBOARD
+          </span>
 
-      <h1>
-          Academic <span>Profile</span>
-      </h1>
+          <h1>
+            Academic <span>Profile</span>
+          </h1>
 
           <p>
             Complete your academic profile once. UniConnect will
@@ -283,82 +285,86 @@ function AcademicProfile() {
             <ResultsForm onSubmit={handleResultsSubmit} />
           </div>
 
+          {/* Academic Snapshot */}
+          <div className="academic-snapshot">
+            <div className="snapshot-header">
+              <div>
+                <h2>Academic Snapshot</h2>
+                <p>
+                  A quick overview of your academic progress
+                  and opportunities on UniConnect.
+                </p>
+              </div>
+            </div>
 
-{/* Academic Snapshot */}
-<div className="academic-snapshot">
+            <div className="snapshot-grid">
+              {/* APS Card */}
+              <div className="snapshot-card snapshot-aps">
+                <div className="snapshot-card-top">
+                  <span className="snapshot-label">
+                    Your APS Score
+                  </span>
 
-  <div className="snapshot-header">
-    <div>
-      <h2>Academic Snapshot</h2>
-      <p>
-        A quick overview of your academic progress
-        and opportunities on UniConnect.
-      </p>
-    </div>
-  </div>
+                  <span className="snapshot-icon" aria-hidden="true">
+                    <GraduationCap size={22} strokeWidth={2} />
+                  </span>
+                </div>
 
-  <div className="snapshot-grid">
+                <div className="snapshot-value">
+                  {aps ?? "--"}
+                </div>
 
-    {/* APS Card */}
-    <div className="snapshot-card snapshot-aps">
-      <div className="snapshot-card-top">
-        <span className="snapshot-label">
-          Your APS Score
-        </span>
-        <span className="snapshot-icon">★</span>
-      </div>
+                <p>
+                  {aps !== null
+                    ? "Calculated from your saved Grade 12 results."
+                    : "Save your Grade 12 results to calculate your APS."}
+                </p>
+              </div>
 
-      <div className="snapshot-value">
-        {aps ?? "--"}
-      </div>
+              {/* Universities Card */}
+              <div className="snapshot-card">
+                <div className="snapshot-card-top">
+                  <span className="snapshot-label">
+                    Universities
+                  </span>
 
-      <p>
-        {aps !== null
-          ? "Calculated from your saved Grade 12 results."
-          : "Save your Grade 12 results to calculate your APS."}
-      </p>
-    </div>
+                  <span className="snapshot-icon" aria-hidden="true">
+                    <Landmark size={22} strokeWidth={2} />
+                  </span>
+                </div>
 
-    {/* Universities Card */}
-    <div className="snapshot-card">
-      <div className="snapshot-card-top">
-        <span className="snapshot-label">
-          Universities
-        </span>
-        <span className="snapshot-icon">🎓</span>
-      </div>
+                <div className="snapshot-value">
+                  {universityCount}
+                </div>
 
-      <div className="snapshot-value">
-        {universityCount}
-      </div>
+                <p>Institutions to explore</p>
+              </div>
 
-      <p>Institutions to explore</p>
-    </div>
+              {/* Programmes Card */}
+              <div className="snapshot-card">
+                <div className="snapshot-card-top">
+                  <span className="snapshot-label">
+                    Programmes
+                  </span>
 
-    {/* Programmes Card */}
-    <div className="snapshot-card">
-      <div className="snapshot-card-top">
-        <span className="snapshot-label">
-          Programmes
-        </span>
-        <span className="snapshot-icon">📚</span>
-      </div>
+                  <span className="snapshot-icon" aria-hidden="true">
+                    <BookOpen size={22} strokeWidth={2} />
+                  </span>
+                </div>
 
-      <div className="snapshot-value">
-        {programmeCount}
-      </div>
+                <div className="snapshot-value">
+                  {programmeCount}
+                </div>
 
-      <p>Programmes to discover</p>
-    </div>
+                <p>Programmes to discover</p>
+              </div>
+            </div>
 
-  </div>
-
-  <p className="snapshot-note">
-    APS requirements may differ between universities.
-    Explore individual programmes to check your eligibility.
-  </p>
-
-</div>
+            <p className="snapshot-note">
+              APS requirements may differ between universities.
+              Explore individual programmes to check your eligibility.
+            </p>
+          </div>
 
           {/* Reset */}
           <button
