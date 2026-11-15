@@ -1,12 +1,29 @@
+
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
+import {
+  Menu,
+  X,
+  LogIn,
+  LogOut,
+  UserRoundPlus,
+  GraduationCap,
+} from "lucide-react";
 
 function Navbar() {
-
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("uniConnectLoggedIn") === "true"
+    () =>
+      localStorage.getItem("uniConnectLoggedIn") ===
+      "true"
   );
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,18 +31,37 @@ function Navbar() {
   useEffect(() => {
     const checkLoginStatus = () => {
       setIsLoggedIn(
-        localStorage.getItem("uniConnectLoggedIn") === "true"
+        localStorage.getItem("uniConnectLoggedIn") ===
+          "true"
       );
     };
 
-    window.addEventListener("storage", checkLoginStatus);
-    window.addEventListener("uniConnectUserChanged", checkLoginStatus);
+    window.addEventListener(
+      "storage",
+      checkLoginStatus
+    );
+
+    window.addEventListener(
+      "uniConnectUserChanged",
+      checkLoginStatus
+    );
 
     return () => {
-      window.removeEventListener("storage", checkLoginStatus);
-      window.removeEventListener("uniConnectUserChanged", checkLoginStatus);
+      window.removeEventListener(
+        "storage",
+        checkLoginStatus
+      );
+
+      window.removeEventListener(
+        "uniConnectUserChanged",
+        checkLoginStatus
+      );
     };
   }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -35,7 +71,9 @@ function Navbar() {
     localStorage.removeItem("uniConnectLoggedIn");
     localStorage.removeItem("uniConnectUserEmail");
 
-    window.dispatchEvent(new Event("uniConnectUserChanged"));
+    window.dispatchEvent(
+      new Event("uniConnectUserChanged")
+    );
 
     setIsLoggedIn(false);
     setMenuOpen(false);
@@ -43,61 +81,137 @@ function Navbar() {
     navigate("/login");
   };
 
-  return (
-    <nav className="navbar">
+  const navClass = ({ isActive }) =>
+    isActive ? "nav-link active" : "nav-link";
 
-      <Link to="/" className="logo" onClick={closeMenu}>
-        UniConnect
+  return (
+    <nav
+      className="navbar"
+      aria-label="Main navigation"
+    >
+      {/* LOGO */}
+
+      <Link
+        to="/"
+        className="logo"
+        onClick={closeMenu}
+        aria-label="UniConnect Home"
+      >
+        <GraduationCap
+          size={27}
+          strokeWidth={2}
+          aria-hidden="true"
+        />
+        <span>UniConnect</span>
       </Link>
+
+      {/* MOBILE MENU */}
 
       <button
         type="button"
-        className={`hamburger ${menuOpen ? "active" : ""}`}
+        className={`hamburger ${
+          menuOpen ? "active" : ""
+        }`}
         onClick={() => setMenuOpen(!menuOpen)}
-        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-label={
+          menuOpen
+            ? "Close navigation menu"
+            : "Open navigation menu"
+        }
         aria-expanded={menuOpen}
+        aria-controls="uniconnect-nav-links"
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        {menuOpen ? (
+          <X size={26} aria-hidden="true" />
+        ) : (
+          <Menu size={26} aria-hidden="true" />
+        )}
       </button>
 
-      <div className={`nav-links ${menuOpen ? "menu-open" : ""}`}>
+      {/* NAVIGATION LINKS */}
 
-        <Link to="/" onClick={closeMenu}>
+      <div
+        id="uniconnect-nav-links"
+        className={`nav-links ${
+          menuOpen ? "menu-open" : ""
+        }`}
+      >
+        <NavLink
+          to="/"
+          end
+          className={navClass}
+          onClick={closeMenu}
+        >
           Home
-        </Link>
+        </NavLink>
 
-        <Link to="/programmes" onClick={closeMenu}>
+        <NavLink
+          to="/programmes"
+          className={navClass}
+          onClick={closeMenu}
+        >
           Programmes
-        </Link>
+        </NavLink>
 
-        <Link to="/universities" onClick={closeMenu}>
+        <NavLink
+          to="/universities"
+          className={navClass}
+          onClick={closeMenu}
+        >
           Universities
-        </Link>
+        </NavLink>
 
-        <Link to="/profile" onClick={closeMenu}>
+        <NavLink
+          to="/profile"
+          className={navClass}
+          onClick={closeMenu}
+        >
           Academic Profile
-        </Link>
+        </NavLink>
 
-        <Link to="/settings" onClick={closeMenu}>
+        <NavLink
+          to="/settings"
+          className={navClass}
+          onClick={closeMenu}
+        >
           Settings
-        </Link>
+        </NavLink>
+
+        {/* ACCOUNT ACTIONS */}
 
         {isLoggedIn ? (
           <button
             type="button"
-            onClick={handleLogout}
             className="nav-logout"
+            onClick={handleLogout}
           >
-            Log Out
+            <LogOut size={17} aria-hidden="true" />
+            <span>Log Out</span>
           </button>
         ) : (
-          <Link to="/login" onClick={closeMenu}>
-            Log In
-          </Link>
-        )}
+          <>
+            <NavLink
+              to="/login"
+              className="nav-login"
+              onClick={closeMenu}
+            >
+              <LogIn size={17} aria-hidden="true" />
+              <span>Log In</span>
+            </NavLink>
 
+            <NavLink
+              to="/signup"
+              className="nav-signup"
+              onClick={closeMenu}
+            >
+              <UserRoundPlus
+                size={17}
+                aria-hidden="true"
+              />
+              <span>Sign Up</span>
+            </NavLink>
+          </>
+        )}
       </div>
     </nav>
   );

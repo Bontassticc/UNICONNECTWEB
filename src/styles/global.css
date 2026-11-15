@@ -58,45 +58,351 @@ body{
   color:#2563eb;
 }
 
+
 /* =========================
-   HERO
+   HOME HERO
 ========================= */
 
-.hero{
-  min-height:100vh;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  text-align:center;
-  padding:0 8%;
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 8% 90px;
 
   background:
-  radial-gradient(circle at top left, #dbeafe 0%, transparent 30%),
-  radial-gradient(circle at bottom right, #bfdbfe 0%, transparent 30%);
+    radial-gradient(
+      circle at top left,
+      #dbeafe 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      #bfdbfe 0%,
+      transparent 35%
+    ),
+    #f8fbff;
 }
 
-.hero-content{
-  max-width:850px;
+.hero .hero-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: 65px;
 }
 
-.hero-content h1{
-  font-size:72px;
-  line-height:1.1;
-  margin-bottom:25px;
-  font-weight:700;
+/* =========================
+   HERO CONTENT
+========================= */
+
+.hero .hero-content {
+  max-width: 650px;
+  text-align: left;
 }
 
-.hero-content span{
-  color:#2563eb;
+.hero .hero-eyebrow {
+  display: inline-block;
+  margin-bottom: 22px;
+
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
 }
 
-.hero-content p{
-  font-size:20px;
-  line-height:1.8;
-  color:#6b7280;
-  margin-bottom:40px;
+.hero .hero-content h1 {
+  font-size: clamp(42px, 4.5vw, 68px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  font-weight: 800;
+  color: #0f172a;
+
+  margin: 0 0 25px;
+}
+
+.hero .hero-content h1 span {
+  color: #2563eb;
+}
+
+.hero .hero-content > p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #64748b;
+
+  max-width: 590px;
+  margin: 0 0 34px;
+}
+
+/* =========================
+   HERO BUTTONS
+========================= */
+
+.hero .hero-buttons {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.hero .hero-buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 15px 22px;
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: transform 0.2s ease,
+              background 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.hero .hero-buttons .primary-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid #2563eb;
+}
+
+.hero .hero-buttons .primary-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18);
+}
+
+.hero .hero-buttons .secondary-btn {
+  background: #ffffff;
+  color: #2563eb;
+  border: 1px solid #cbd5e1;
+}
+
+.hero .hero-buttons .secondary-btn:hover {
+  background: #eff6ff;
+  transform: translateY(-2px);
+}
+
+.hero .hero-supporting-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 28px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+.hero .hero-supporting-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #2563eb;
+}
+
+/* =========================
+   STUDENT SNAPSHOT DASHBOARD
+========================= */
+
+.hero .hero-dashboard {
+  min-width: 0;
+  padding: 32px;
+  border-radius: 22px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 22px 60px rgba(15, 23, 42, 0.08);
+}
+
+.hero .snapshot-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.hero .snapshot-label {
+  display: block;
+  margin-bottom: 9px;
+
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.hero .snapshot-heading h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.hero .snapshot-decoration {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+
+  background: #eff6ff;
+  border-radius: 12px;
+  color: #2563eb;
+}
+
+.hero .snapshot-description {
+  margin: 17px 0 26px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #64748b;
+}
+
+/* Snapshot Cards */
+
+.hero .snapshot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.hero .snapshot-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+  padding: 18px 14px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+}
+
+.hero .snapshot-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+
+  background: #dbeafe;
+  color: #2563eb;
+  border-radius: 12px;
+}
+
+.hero .snapshot-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.hero .snapshot-details span {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.hero .snapshot-details strong {
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 800;
+
+  overflow-wrap: anywhere;
+}
+
+.hero .snapshot-footer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-top: 24px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e2e8f0;
+
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.hero .snapshot-footer svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+/* =========================
+   RESPONSIVE HERO
+========================= */
+
+@media (max-width: 1050px) {
+  .hero .hero-container {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .hero .hero-content {
+    max-width: 750px;
+  }
+
+  .hero .hero-dashboard {
+    width: 100%;
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: auto;
+    padding: 125px 6% 65px;
+  }
+
+  .hero .hero-container {
+    gap: 35px;
+  }
+
+  .hero .hero-content h1 {
+    font-size: clamp(36px, 9vw, 46px);
+    letter-spacing: -1.5px;
+  }
+
+  .hero .hero-content > p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .hero .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero .hero-buttons a {
+    width: 100%;
+  }
+
+  .hero .hero-dashboard {
+    padding: 22px;
+  }
+
+  .hero .snapshot-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero .snapshot-heading h3 {
+    font-size: 22px;
+  }
 }
 
 /* =========================
@@ -4690,3 +4996,1294 @@ body.dark-mode .profile-page .reset-btn {
 }
 
 
+/* =========================
+   HOME PAGE - FINAL SECTIONS
+========================= */
+
+.features,
+.how-it-works,
+.featured-universities {
+  padding: 100px 8%;
+}
+
+.features {
+  background: #ffffff;
+}
+
+.how-it-works {
+  background: #f8fbff;
+}
+
+.featured-universities {
+  background: #ffffff;
+}
+
+/* SECTION HEADINGS */
+
+.features .section-title,
+.how-it-works .section-title,
+.featured-universities .section-title {
+  max-width: 750px;
+  margin: 0 auto 55px;
+  text-align: center;
+}
+
+.section-eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+}
+
+.features .section-title h2,
+.how-it-works .section-title h2,
+.featured-universities .section-title h2 {
+  color: #0f172a;
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -1px;
+  margin-bottom: 17px;
+}
+
+.features .section-title p,
+.how-it-works .section-title p,
+.featured-universities .section-title p {
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* FEATURE CARDS */
+
+.features .features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.features .feature-card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.035);
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.features .feature-card:hover {
+  transform: translateY(-5px);
+  border-color: #bfdbfe;
+  box-shadow: 0 16px 35px rgba(37, 99, 235, 0.08);
+}
+
+.features .feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  margin-bottom: 25px;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.features .feature-card h3 {
+  color: #0f172a;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.features .feature-card p {
+  flex: 1;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.features .feature-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.features .feature-link:hover {
+  color: #1d4ed8;
+}
+
+/* HOW IT WORKS */
+
+.how-it-works .steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.how-it-works .step {
+  text-align: left;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+}
+
+.how-it-works .step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.how-it-works .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.how-it-works .step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.how-it-works .step h3 {
+  color: #0f172a;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.how-it-works .step p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.steps-action,
+.featured-universities-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.steps-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 25px;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease,
+              transform 0.2s ease;
+}
+
+.steps-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+/* QUICK STATS */
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  padding: 65px 8%;
+  background: #1e40af;
+}
+
+.quick-stats .stat-card {
+  padding: 28px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.quick-stats .stat-card svg {
+  color: #bfdbfe;
+  margin-bottom: 12px;
+}
+
+.quick-stats .stat-card h2 {
+  color: #ffffff;
+  font-size: 35px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.quick-stats .stat-card p {
+  color: #dbeafe;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* FEATURED UNIVERSITIES */
+
+.featured-universities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.featured-university-card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.04);
+}
+
+.featured-university-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 24px;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.featured-university-card h3 {
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.featured-university-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.featured-university-location svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.featured-university-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.featured-university-footer span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.featured-university-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1050px) {
+  .features .features-grid,
+  .featured-universities-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .how-it-works .steps,
+  .quick-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .features,
+  .how-it-works,
+  .featured-universities {
+    padding: 70px 6%;
+  }
+
+  .features .features-grid,
+  .how-it-works .steps,
+  .featured-universities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 45px 6%;
+    gap: 12px;
+  }
+
+  .quick-stats .stat-card {
+    padding: 22px 12px;
+  }
+
+  .quick-stats .stat-card h2 {
+    font-size: 28px;
+  }
+
+  .features .feature-card,
+  .featured-university-card {
+    padding: 26px;
+  }
+
+  .steps-btn {
+    width: 100%;
+  }
+}
+
+
+/* NAVBAR LOGO REFINEMENT */
+
+.navbar .logo {
+  text-decoration: none;
+}
+
+.navbar .logo:hover {
+  text-decoration: none;
+}
+
+.navbar a:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+
+/* =========================================
+   NAVBAR LOGO - CLEAN FOCUS STYLING
+========================================= */
+
+.navbar .logo {
+  text-decoration: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar .logo:hover {
+  text-decoration: none;
+}
+
+.navbar .logo:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar .logo:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 5px;
+  border-radius: 5px;
+}
+
+
+/* ==========================================
+   UNICONNECT NAVBAR POLISH
+========================================== */
+
+.navbar .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #2563eb;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar .logo:hover {
+  text-decoration: none;
+}
+
+.navbar .logo:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar .logo:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 5px;
+  border-radius: 5px;
+}
+
+.navbar .nav-links {
+  align-items: center;
+}
+
+.navbar .nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #475569;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #2563eb;
+}
+
+.navbar .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  border-radius: 2px;
+  background: #2563eb;
+}
+
+.navbar .nav-login,
+.navbar .nav-logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar .nav-login {
+  color: #ffffff;
+  background: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.navbar .nav-login:hover {
+  color: #ffffff;
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.navbar .nav-logout {
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.navbar .nav-logout:hover {
+  background: #dbeafe;
+}
+
+.navbar .hamburger {
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+}
+
+@media (max-width: 900px) {
+  .navbar .nav-links.menu-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .navbar .nav-link.active::after {
+    display: none;
+  }
+
+  .navbar .nav-link.active {
+    font-weight: 700;
+  }
+
+  .navbar .nav-login,
+  .navbar .nav-logout {
+    width: 100%;
+  }
+}
+
+
+/* ==========================================
+   UNICONNECT - LOGIN & SIGN UP STYLING
+========================================== */
+
+.uc-login-page {
+  min-height: 100vh;
+  padding: 145px 7% 70px;
+  background: linear-gradient(135deg, #f8fbff, #eaf2ff);
+}
+
+.uc-login-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 65px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.uc-login-welcome {
+  padding: 35px 0;
+}
+
+.uc-login-welcome-icon,
+.uc-login-form-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 25px;
+  border-radius: 18px;
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.uc-login-eyebrow {
+  display: block;
+  margin-bottom: 15px;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.uc-login-welcome h1 {
+  max-width: 540px;
+  margin-bottom: 22px;
+  color: #0f172a;
+  font-size: clamp(36px, 4.5vw, 60px);
+  line-height: 1.13;
+  letter-spacing: -1.8px;
+}
+
+.uc-login-welcome h1 span {
+  color: #2563eb;
+}
+
+.uc-login-welcome > p {
+  max-width: 490px;
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.uc-login-card {
+  padding: 45px;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 22px 65px rgba(30, 64, 175, 0.09);
+}
+
+.uc-login-form-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+}
+
+.uc-login-card-heading h2 {
+  margin-bottom: 10px;
+  color: #0f172a;
+  font-size: 30px;
+  letter-spacing: -0.7px;
+}
+
+.uc-login-card-heading > p {
+  margin-bottom: 30px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.uc-login-form {
+  display: grid;
+  gap: 22px;
+}
+
+.uc-login-field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.uc-login-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 0 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+  background: #f8fafc;
+}
+
+.uc-login-input-wrap:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.uc-login-input-wrap > svg {
+  flex-shrink: 0;
+  color: #94a3b8;
+}
+
+.uc-login-input-wrap input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 15px 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.uc-login-input-wrap input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.uc-login-input-wrap input::placeholder {
+  color: #94a3b8;
+}
+
+.uc-login-password-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.uc-login-password-toggle:hover {
+  background: #e2e8f0;
+  color: #2563eb;
+}
+
+.uc-login-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 54px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 11px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.uc-login-submit:hover {
+  background: #1d4ed8;
+}
+
+.uc-login-status {
+  margin-bottom: 20px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.uc-login-status.error {
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.uc-login-demo-note {
+  margin-top: 28px;
+  padding: 17px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #475569;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.uc-login-bottom {
+  margin-top: 25px;
+  padding-top: 22px;
+  border-top: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 13px;
+  text-align: center;
+}
+
+.uc-login-bottom a {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.uc-login-bottom a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================
+   RESPONSIVE LOGIN & SIGN UP
+========================================== */
+
+@media (max-width: 950px) {
+  .uc-login-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    max-width: 620px;
+  }
+
+  .uc-login-welcome {
+    padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .uc-login-page {
+    padding: 115px 20px 45px;
+  }
+
+  .uc-login-welcome h1 {
+    font-size: 36px;
+  }
+
+  .uc-login-card {
+    padding: 27px 22px;
+    border-radius: 18px;
+  }
+
+  .uc-login-card-heading h2 {
+    font-size: 26px;
+  }
+}
+
+
+/* ==========================================
+   NAVBAR LOGIN AND SIGN UP ACTIONS
+========================================== */
+
+.navbar .nav-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 12px;
+  color: #2563eb;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.navbar .nav-login:hover {
+  color: #1d4ed8;
+  background: #eff6ff;
+  transform: none;
+}
+
+.navbar .nav-signup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 17px;
+  border: 1px solid #2563eb;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.navbar .nav-signup:hover {
+  color: #ffffff;
+  background: #1d4ed8;
+}
+
+.navbar .nav-login:focus-visible,
+.navbar .nav-signup:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .navbar .nav-login,
+  .navbar .nav-signup {
+    width: 100%;
+  }
+}
+
+
+/* ==========================================
+   UNICONNECT - DEMO ACCESS
+========================================== */
+
+.uc-demo-access {
+  margin-top: 28px;
+}
+
+.uc-demo-divider {
+  position: relative;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.uc-demo-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.uc-demo-divider span {
+  position: relative;
+  padding: 0 15px;
+  background: #ffffff;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.uc-demo-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 18px;
+  border: 1px solid #bfdbfe;
+  border-radius: 11px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.uc-demo-button:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+}
+
+.uc-demo-description {
+  margin-top: 12px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+
+/* ==========================================
+   UNICONNECT - DARK MODE POLISH
+========================================== */
+
+/* Make the Navbar logout button readable */
+body.dark-mode .navbar .nav-logout {
+  background: #1e3a5f;
+  color: #ffffff;
+  border: 1px solid #3b82f6;
+}
+
+body.dark-mode .navbar .nav-logout:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+/* Match the active theme toggle to UniConnect blue */
+.settings-page .theme-toggle.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+body.dark-mode .settings-page .theme-toggle.active {
+  background: #2563eb;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+/* Accessible keyboard focus */
+.settings-page .theme-toggle:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+
+/* ==========================================
+   UNICONNECT - HOME DARK MODE CARD FIX
+   Keep text readable on white cards
+========================================== */
+
+/* Feature cards */
+body.dark-mode .features .feature-card {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+body.dark-mode .features .feature-card h3 {
+  color: #0f172a;
+}
+
+body.dark-mode .features .feature-card p {
+  color: #475569;
+}
+
+body.dark-mode .features .feature-card .feature-link {
+  color: #2563eb;
+}
+
+/* Four Steps Towards Your Future */
+body.dark-mode .how-it-works .step {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+body.dark-mode .how-it-works .step h3 {
+  color: #0f172a;
+}
+
+body.dark-mode .how-it-works .step p {
+  color: #475569;
+}
+
+/* Featured university cards */
+body.dark-mode .featured-universities .featured-university-card {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+body.dark-mode .featured-universities .featured-university-card h3 {
+  color: #0f172a;
+}
+
+body.dark-mode .featured-universities .featured-university-location,
+body.dark-mode .featured-universities .featured-university-location span {
+  color: #64748b;
+}
+
+body.dark-mode .featured-universities .featured-university-footer > span {
+  color: #64748b;
+}
+
+body.dark-mode .featured-universities .featured-university-footer a {
+  color: #2563eb;
+}
+
+/* Quick stats - only when cards remain light */
+body.dark-mode .quick-stats .stat-card {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+body.dark-mode .quick-stats .stat-card h2 {
+  color: #0f172a;
+}
+
+body.dark-mode .quick-stats .stat-card p {
+  color: #475569;
+}
+
+
+/* ==========================================
+   UNICONNECT - PROGRAMME DETAILS
+   DARK MODE CONTRAST FIX
+========================================== */
+
+/* Programme field badge */
+body.dark-mode .programme-hero .status {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+/* Eligibility badges */
+body.dark-mode .programme-details-page .eligibility-green {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+body.dark-mode .programme-details-page .eligibility-yellow {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+body.dark-mode .programme-details-page .eligibility-red {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+/* APS comparison cards */
+body.dark-mode .programme-details-page .aps-summary > div {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+body.dark-mode .programme-details-page .aps-summary > div span {
+  color: #475569;
+}
+
+body.dark-mode .programme-details-page .aps-summary > div strong {
+  color: #0f172a;
+}
+
+/* Keep subject result indicators readable */
+body.dark-mode .programme-details-page .subject-check-passed {
+  color: #86efac;
+}
+
+body.dark-mode .programme-details-page .subject-check-failed {
+  color: #fca5a5;
+}
+
+body.dark-mode .programme-details-page .subject-check-pending {
+  color: #cbd5e1;
+}
+
+
+/* ==========================================
+   UNICONNECT - AUTHENTICATION DARK MODE
+========================================== */
+
+/* Page background */
+body.dark-mode .uc-login-page {
+  background: #1f1f1f;
+  color: #f8fafc;
+}
+
+/* Welcome panel */
+body.dark-mode .uc-login-welcome,
+body.dark-mode .uc-login-welcome h1 {
+  color: #f8fafc;
+}
+
+body.dark-mode .uc-login-welcome h1 span,
+body.dark-mode .uc-login-eyebrow {
+  color: #60a5fa;
+}
+
+body.dark-mode .uc-login-welcome > p,
+body.dark-mode .uc-login-benefits,
+body.dark-mode .uc-login-benefits span,
+body.dark-mode .uc-login-welcome-footer,
+body.dark-mode .uc-login-welcome-footer span {
+  color: #cbd5e1;
+}
+
+/* Icon backgrounds */
+body.dark-mode .uc-login-welcome-icon,
+body.dark-mode .uc-login-form-icon {
+  background: #1e3a5f;
+  color: #93c5fd;
+}
+
+/* Form card */
+body.dark-mode .uc-login-card {
+  background: #2b2b2b;
+  border-color: #404040;
+  color: #f8fafc;
+}
+
+body.dark-mode .uc-login-card-heading h2 {
+  color: #f8fafc;
+}
+
+body.dark-mode .uc-login-card-heading > p {
+  color: #cbd5e1;
+}
+
+/* Labels */
+body.dark-mode .uc-login-field label {
+  color: #e2e8f0;
+}
+
+/* Input containers */
+body.dark-mode .uc-login-input-wrap {
+  background: #363636;
+  border-color: #525252;
+}
+
+body.dark-mode .uc-login-input-wrap:focus-within {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+
+/* Inputs */
+body.dark-mode .uc-login-input-wrap input {
+  background: transparent;
+  color: #f8fafc;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  -webkit-text-fill-color: #f8fafc;
+}
+
+body.dark-mode .uc-login-input-wrap input::placeholder {
+  color: #a3b3c8;
+  -webkit-text-fill-color: #a3b3c8;
+}
+
+body.dark-mode .uc-login-input-wrap > svg {
+  color: #93a4bb;
+}
+
+/* Chrome autofill */
+body.dark-mode .uc-login-input-wrap input:-webkit-autofill,
+body.dark-mode .uc-login-input-wrap input:-webkit-autofill:hover,
+body.dark-mode .uc-login-input-wrap input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f8fafc;
+  -webkit-box-shadow: 0 0 0 1000px #363636 inset;
+  caret-color: #f8fafc;
+}
+
+/* Show password button */
+body.dark-mode .uc-login-password-toggle {
+  background: transparent;
+  color: #cbd5e1;
+}
+
+body.dark-mode .uc-login-password-toggle:hover {
+  background: #454545;
+  color: #ffffff;
+}
+
+/* Primary button */
+body.dark-mode .uc-login-submit {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+body.dark-mode .uc-login-submit:hover {
+  background: #1d4ed8;
+}
+
+/* Demo access divider */
+body.dark-mode .uc-demo-divider::before {
+  background: #525252;
+}
+
+body.dark-mode .uc-demo-divider span {
+  background: #2b2b2b;
+  color: #cbd5e1;
+}
+
+/* Explore Demo button */
+body.dark-mode .uc-demo-button {
+  background: #1e3a5f;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+body.dark-mode .uc-demo-button:hover {
+  background: #254c80;
+  color: #ffffff;
+}
+
+body.dark-mode .uc-demo-description {
+  color: #cbd5e1;
+}
+
+/* Prototype notice */
+body.dark-mode .uc-login-demo-note {
+  background: #343434;
+  border-color: #525252;
+  color: #cbd5e1;
+}
+
+body.dark-mode .uc-login-demo-note p,
+body.dark-mode .uc-login-demo-note strong {
+  color: #cbd5e1;
+}
+
+/* Bottom links */
+body.dark-mode .uc-login-bottom {
+  border-color: #525252;
+  color: #cbd5e1;
+}
+
+body.dark-mode .uc-login-bottom a {
+  color: #93c5fd;
+}
+
+/* Error messages */
+body.dark-mode .uc-login-status.error {
+  background: #451a1a;
+  border-color: #7f1d1d;
+  color: #fecaca;
+}

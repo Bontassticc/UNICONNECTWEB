@@ -1,9 +1,16 @@
 
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import {
+  UserRound,
+  Calculator,
+  GraduationCap,
+  BookOpen,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 
 import { AcademicContext } from "../context/AcademicContextValue";
-
 import universities from "../data/universities";
 import programmes from "../data/programmes";
 
@@ -13,23 +20,23 @@ function Hero() {
   const snapshotItems = [
     {
       label: "Student",
-      value: studentProfile.firstName || "Guest",
-      icon: "👤",
+      value: studentProfile?.firstName || "Guest",
+      Icon: UserRound,
     },
     {
       label: "Current APS",
       value: aps ?? "--",
-      icon: "🎓",
+      Icon: Calculator,
     },
     {
       label: "Universities",
       value: universities.length,
-      icon: "🏛️",
+      Icon: GraduationCap,
     },
     {
       label: "Programmes",
       value: programmes.length,
-      icon: "📚",
+      Icon: BookOpen,
     },
   ];
 
@@ -48,58 +55,75 @@ function Hero() {
           </h1>
 
           <p>
-            Helping South African students calculate APS scores,
-            check university eligibility, and discover the right
-            academic opportunities with confidence.
+            Navigate your journey to higher education with
+            confidence. Calculate your APS, understand your
+            eligibility, and discover university programmes
+            that match your academic potential.
           </p>
 
           <div className="hero-buttons">
-            <Link to="/profile">
-              <button className="primary-btn">
-                Complete Academic Profile
-              </button>
+            <Link to="/profile" className="primary-btn">
+              Complete Academic Profile
+              <ArrowRight size={18} aria-hidden="true" />
             </Link>
 
-            <Link to="/universities">
-              <button className="secondary-btn">
-                Explore Universities
-              </button>
+            <Link to="/universities" className="secondary-btn">
+              Explore Universities
             </Link>
+          </div>
+
+          <div className="hero-supporting-text">
+            <span className="hero-supporting-icon">
+              <GraduationCap size={18} />
+            </span>
+            Helping South African students make informed
+            decisions about their futures.
           </div>
         </div>
 
         <div className="hero-dashboard">
           <div className="snapshot-heading">
             <div>
-              <span className="snapshot-label">YOUR OVERVIEW</span>
+              <span className="snapshot-label">
+                YOUR OVERVIEW
+              </span>
               <h3>Student Snapshot</h3>
             </div>
 
-            <span className="snapshot-decoration">✦</span>
+            <span className="snapshot-decoration">
+              <Sparkles size={23} strokeWidth={1.7} />
+            </span>
           </div>
 
           <p className="snapshot-description">
-            A quick overview of your academic information and
-            available study opportunities.
+            Your academic information and study opportunities,
+            all in one place.
           </p>
 
           <div className="snapshot-grid">
-            {snapshotItems.map((item) => (
-              <div className="snapshot-item" key={item.label}>
-                <div className="snapshot-icon">
-                  {item.icon}
-                </div>
+            {snapshotItems.map((item) => {
+              const Icon = item.Icon;
 
-                <div className="snapshot-details">
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
+              return (
+                <div
+                  className="snapshot-item"
+                  key={item.label}
+                >
+                  <div className="snapshot-icon">
+                    <Icon size={21} strokeWidth={1.8} />
+                  </div>
+
+                  <div className="snapshot-details">
+                    <span>{item.label}</span>
+                    <strong>{item.value}</strong>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="snapshot-footer">
-            <span>✦</span>
+            <Sparkles size={16} strokeWidth={1.8} />
             Your academic journey, all in one place.
           </div>
         </div>
