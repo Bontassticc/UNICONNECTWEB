@@ -50,7 +50,7 @@ function Hero() {
           </span>
 
           <h1>
-            Your Future Starts With
+            Your future starts with
             <span> UniConnect</span>
           </h1>
 
